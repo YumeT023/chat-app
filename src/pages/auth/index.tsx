@@ -6,7 +6,7 @@ const AuthPage = () => {
 
   useEffect(() => {
     // TODO: redirect here
-    push("/auth/sign-in");
+    push("/auth/login");
   }, [push]);
 };
 
