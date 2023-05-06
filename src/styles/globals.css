@@ -2,6 +2,11 @@
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
     "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
     "Courier New", monospace;
+
+  --border-radius: 10px;
+
+  --background: 48, 48, 54;
+  --background-light: 255, 250, 255;
 }
 
 body,
