@@ -1,14 +1,12 @@
 import {Login} from "@/src/modules/auth";
 import Head from "next/head";
+import {HeadController} from "@/src/ui/utils";
 
 const LoginPage = () => {
   return (
-    <>
-      <Head>
-        <title>chat . Login</title>
-      </Head>
+    <HeadController title="chat . Login">
       <Login />
-    </>
+    </HeadController>
   );
 };
 

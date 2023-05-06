@@ -1,11 +1,5 @@
-import Head from "next/head";
+import {HeadController} from "@/src/ui/utils";
 
 export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>Chat . home</title>
-      </Head>
-    </>
-  );
+  return <HeadController title="chat . home"></HeadController>;
 }
