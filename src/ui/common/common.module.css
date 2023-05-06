@@ -8,7 +8,6 @@
 .box_rounded_root {
   height: 75%;
   width: 30rem;
-  background-color: rgb(var(--background));
   border-radius: var(--border-radius);
 
   position: relative;
