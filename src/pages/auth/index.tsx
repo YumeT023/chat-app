@@ -1,6 +1,6 @@
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
-import {Backdrop, CircularProgress} from "@mui/material";
+import {FullPageLoading} from "@/src/ui/common";
 
 const AuthPage = () => {
   const {push} = useRouter();
@@ -10,11 +10,7 @@ const AuthPage = () => {
     push("/auth/sign-up");
   }, [push]);
 
-  return (
-    <Backdrop open>
-      <CircularProgress />
-    </Backdrop>
-  );
+  return <FullPageLoading />;
 };
 
 export default AuthPage;
