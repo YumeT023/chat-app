@@ -1,11 +1,16 @@
 import {Authenticated} from "@/src/modules/auth/utils/Authenticated";
 import {HeadController} from "@/src/ui/utils";
+import {MainLayout} from "@/src/ui/layout/MainLayout";
 
 const RoomPage = () => {
   return (
     <Authenticated>
       <HeadController title="chat . rooms">
-        <h1>Hello world</h1>
+        <MainLayout
+          LeftPanel={() => <p>left</p>}
+          MainPanel={() => <p>main</p>}
+          RightPanel={() => <p>right</p>}
+        />
       </HeadController>
     </Authenticated>
   );
