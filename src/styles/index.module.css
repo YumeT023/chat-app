@@ -1,0 +1,13 @@
+.redirect_message_container {
+  height: 50%;
+  background-color: rgb(var(--background));
+
+  border-radius: var(--border-radius);
+
+  padding: 2rem;
+  align-items: center;
+
+  justify-content: space-evenly;
+
+  position: relative;
+}
