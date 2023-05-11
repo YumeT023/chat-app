@@ -11,7 +11,7 @@ export type AuthenticatedProps = PropsWithChildren<{
   fallback?: string;
 }>;
 
-export const Authenticated = ({children, fallback = "/auth/sign-up"}: AuthenticatedProps) => {
+export const Authenticated = ({children, fallback = "/login"}: AuthenticatedProps) => {
   const {checkAuth} = useAuth();
   const {push} = useRouter();
   const [loading, setLoading] = useState(true);

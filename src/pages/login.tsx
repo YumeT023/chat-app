@@ -1,10 +1,10 @@
-import {SignUp} from "@/src/modules/auth";
+import {Login} from "@/src/modules/auth";
 import {HeadController} from "@/src/ui/utils";
 
 const LoginPage = () => {
   return (
-    <HeadController title="chat . Login">
-      <SignUp />
+    <HeadController title="login • chat">
+      <Login />
     </HeadController>
   );
 };
