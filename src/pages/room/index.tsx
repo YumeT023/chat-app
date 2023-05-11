@@ -11,7 +11,7 @@ export type RoomPageProps = {
 const RoomPage = ({channels}: RoomPageProps) => {
   return (
     <Authenticated>
-      <HeadController title="chat . rooms">
+      <HeadController title="chat • sleek">
         <MainLayout
           LeftPanel={() => <ChannelList channels={channels} />}
           MainPanel={() => <MessagePanel />}

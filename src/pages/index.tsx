@@ -15,7 +15,7 @@ const HomePage = () => {
   }, [push]);
 
   return (
-    <HeadController title="chat . home">
+    <HeadController title="home • sleek">
       <RoundedBox>
         <Stack className={styles.redirect_message_container}>
           <Avatar>

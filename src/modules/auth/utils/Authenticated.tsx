@@ -1,7 +1,6 @@
-import {PropsWithChildren, useEffect, useRef, useState} from "react";
+import {PropsWithChildren, useEffect, useState} from "react";
 import {useAuth} from "@/src/modules/auth";
 import {useRouter} from "next/router";
-import {HeadController} from "@/src/ui/utils";
 import {FullPageLoading} from "@/src/ui/common";
 
 export type AuthenticatedProps = PropsWithChildren<{
