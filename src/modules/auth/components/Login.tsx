@@ -15,6 +15,7 @@ const common = {
 
 export const Login = () => {
   const login = useAuthStore((state) => state.loginUser);
+  const isLoading = useAuthStore((state) => state.isLoading);
   const {push} = useRouter();
   const {
     register,
@@ -38,6 +39,7 @@ export const Login = () => {
       title="Welcome back,"
       submitLabel="sign in"
       handleSubmit={handleSubmit(onSubmit)}
+      isLoading={isLoading}
       or={{
         caption: `Don't have an account ?`,
         route: "/sign-up",
