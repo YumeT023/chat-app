@@ -3,6 +3,8 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {loginSchema} from "@/src/modules/auth/utils/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
+import {useAuthStore} from "@/src/modules/auth/store";
+import {useRouter} from "next/navigation";
 
 const common = {
   variant: "outlined" as "outlined",
@@ -12,6 +14,9 @@ const common = {
 };
 
 export const Login = () => {
+  const logged = useAuthStore((state) => state.loggedUser);
+  const login = useAuthStore((state) => state.loginUser);
+  const {push} = useRouter();
   const {
     register,
     handleSubmit,
@@ -20,7 +25,17 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit = async ({name, email, password}: any) => {};
+  const onSubmit = async ({email, password}: any) => {
+    try {
+      await login({
+        email,
+        password,
+      });
+      push("/room");
+    } catch (e) {
+      console.log("error> ", e);
+    }
+  };
 
   return (
     <AuthForm
