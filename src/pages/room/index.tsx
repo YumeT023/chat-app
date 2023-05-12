@@ -1,6 +1,6 @@
 import {Authenticated} from "@/src/modules/auth/utils/Authenticated";
-import {HeadController} from "@/src/ui/utils";
-import {MainLayout} from "@/src/ui/layout/MainLayout";
+import {HeadController} from "../../common/utils";
+import {MainLayout} from "@/src/common/components/layout/MainLayout";
 import {ChannelList, MessagePanel} from "@/src/modules/room";
 import {GetServerSideProps} from "next";
 

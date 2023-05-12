@@ -1,6 +1,6 @@
 import {PropsWithChildren, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {FullPageLoading} from "@/src/ui/common";
+import {FullPageLoading} from "@/src/common/components";
 import {useAuthStore} from "@/src/modules/auth";
 
 export type AuthenticatedProps = PropsWithChildren<{

@@ -1,8 +1,8 @@
 import {Avatar, Stack, Typography} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
-import {HeadController} from "@/src/ui/utils";
-import {RoundedBox} from "@/src/ui/common/box";
+import {HeadController} from "../common/utils";
+import {RoundedBox} from "../common/components/box";
 import dogeImage from "@/src/assets/img/doge-meme-icon.jpg";
 import styles from "@/src/styles/index.module.css";
 import Image from "next/image";

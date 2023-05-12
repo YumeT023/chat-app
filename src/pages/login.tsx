@@ -1,5 +1,5 @@
 import {Login} from "@/src/modules/auth";
-import {HeadController} from "@/src/ui/utils";
+import {HeadController} from "../common/utils";
 
 const LoginPage = () => {
   return (

@@ -1,6 +1,6 @@
 import {BaseSyntheticEvent, PropsWithChildren} from "react";
-import {RoundedBox} from "@/src/ui/common/box";
-import {FullPageLoading} from "@/src/ui/common";
+import {RoundedBox} from "../../../common/components/box";
+import {FullPageLoading} from "@/src/common/components";
 import {Avatar, Box, Button, Typography} from "@mui/material";
 import styles from "@/src/modules/auth/components/auth.module.css";
 import Image from "next/image";
