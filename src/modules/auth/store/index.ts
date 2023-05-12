@@ -22,16 +22,25 @@ export const useAuthStore = create<State & Actions>()(
       loggedUser: null,
       loginUser: async (credentials) => {
         set({loggedUser: null, isLoading: true});
-        const user = await loginWithEmailAndPassword(credentials);
-        set({loggedUser: user?.data, isLoading: false});
+        try {
+          const user = await loginWithEmailAndPassword(credentials);
+          set({loggedUser: user?.data, isLoading: false});
+        } catch (e) {
+          set({isLoading: false});
+          throw e;
+        }
       },
       logoutUser: () => {
         set({loggedUser: null});
       },
       createUser: async (user) => {
         set({loggedUser: null, isLoading: true});
-        const created = await createUser(user);
-        set({loggedUser: created?.data, isLoading: false});
+        try {
+          const created = await createUser(user);
+          set({loggedUser: created?.data, isLoading: false});
+        } catch (e) {
+          set({isLoading: false});
+        }
       },
     }),
     {
