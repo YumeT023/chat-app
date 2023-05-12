@@ -14,7 +14,6 @@ const common = {
 };
 
 export const Login = () => {
-  const logged = useAuthStore((state) => state.loggedUser);
   const login = useAuthStore((state) => state.loginUser);
   const {push} = useRouter();
   const {
@@ -25,15 +24,12 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit = async ({email, password}: any) => {
+  const onSubmit = async (payload: any) => {
     try {
-      await login({
-        email,
-        password,
-      });
+      await login(payload);
       push("/room");
     } catch (e) {
-      console.log("error> ", e);
+      console.error("error> ", e);
     }
   };
 
