@@ -1,4 +1,4 @@
-import {Nullable} from "@/src/utils/optional";
+import {Nullable} from "@/src/types/utility";
 
 export enum UserStatus {
   Away,

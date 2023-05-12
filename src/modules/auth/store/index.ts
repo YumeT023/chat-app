@@ -1,6 +1,6 @@
 import {create} from "zustand";
 import {createJSONStorage, persist} from "zustand/middleware";
-import {Nullable} from "@/src/utils/optional";
+import {Nullable} from "@/src/types/utility";
 import {CreatePayload, Payload} from "@/src/modules/auth/types";
 import {User} from "@/src/modules/user/types";
 import {AUTH_TOKEN_KEY} from "@/src/modules/auth/constants";
