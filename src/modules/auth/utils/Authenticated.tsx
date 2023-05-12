@@ -1,7 +1,7 @@
 import {PropsWithChildren, useEffect, useState} from "react";
-import {useAuth} from "@/src/modules/auth";
 import {useRouter} from "next/router";
 import {FullPageLoading} from "@/src/ui/common";
+import {useAuthStore} from "@/src/modules/auth";
 
 export type AuthenticatedProps = PropsWithChildren<{
   /**
@@ -11,17 +11,17 @@ export type AuthenticatedProps = PropsWithChildren<{
 }>;
 
 export const Authenticated = ({children, fallback = "/login"}: AuthenticatedProps) => {
-  const {checkAuth} = useAuth();
+  const logged = useAuthStore((state) => state.loggedUser);
   const {push} = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const doCheckAuthentication = async () => {
-      checkAuth() ? setLoading(false) : await push(fallback);
+      logged ? setLoading(false) : await push(fallback);
     };
 
     doCheckAuthentication();
-  }, [push, checkAuth, fallback]);
+  }, [push, logged, fallback]);
 
   return <>{loading ? <FullPageLoading /> : children}</>;
 };
