@@ -8,7 +8,7 @@ export type FullPageLoadingProps = PropsWithChildren<{
 export const FullPageLoading = ({children, loading = true}: FullPageLoadingProps) => {
   return (
     <>
-      <Backdrop open={loading}>
+      <Backdrop open={loading} sx={{zIndex: 9999}}>
         <CircularProgress />
       </Backdrop>
       {children}

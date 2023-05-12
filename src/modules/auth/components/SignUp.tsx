@@ -15,6 +15,7 @@ const common = {
 
 export const SignUp = () => {
   const createUser = useAuthStore((state) => state.createUser);
+  const isLoading = useAuthStore((state) => state.isLoading);
   const {push} = useRouter();
   const {
     register,
@@ -38,6 +39,7 @@ export const SignUp = () => {
       title="First, tell us who you are"
       submitLabel="Create an account"
       handleSubmit={handleSubmit(onSubmit)}
+      isLoading={isLoading}
       or={{
         caption: `Already have an account ?`,
         route: "/login",

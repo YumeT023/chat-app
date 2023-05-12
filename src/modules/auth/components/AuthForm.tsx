@@ -10,6 +10,7 @@ import Link from "next/link";
 export type AuthFormProps = PropsWithChildren<{
   title: string;
   submitLabel: string;
+  isLoading?: boolean;
   or: {
     route: string;
     submitLabel: string;
@@ -25,11 +26,18 @@ const common = {
   },
 };
 
-export const AuthForm = ({title, submitLabel, or, handleSubmit, children}: AuthFormProps) => {
+export const AuthForm = ({
+  title,
+  submitLabel,
+  or,
+  handleSubmit,
+  children,
+  isLoading = false,
+}: AuthFormProps) => {
   return (
     <RoundedBox>
       <form onSubmit={handleSubmit}>
-        <FullPageLoading loading={false}>
+        <FullPageLoading loading={isLoading}>
           <Box className={styles.login_container}>
             <Box className={styles.login_head}>
               <Avatar>
