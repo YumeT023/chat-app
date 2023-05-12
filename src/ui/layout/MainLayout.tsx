@@ -1,5 +1,5 @@
 import {ElementType} from "react";
-import {Grid} from "@mui/material";
+import {Grid, useMediaQuery} from "@mui/material";
 import styles from "./layout.module.css";
 
 export type MainLayoutProps = {
@@ -8,7 +8,10 @@ export type MainLayoutProps = {
   RightPanel?: ElementType;
 };
 
+// TODO: fix layouting
 export const MainLayout = ({MainPanel, RightPanel, LeftPanel}: MainLayoutProps) => {
+  const match = useMediaQuery("(max-width: 1080px)");
+
   const getMainPanelSize = () => {
     let initial = 7;
     !RightPanel && (initial += 3);
@@ -17,9 +20,9 @@ export const MainLayout = ({MainPanel, RightPanel, LeftPanel}: MainLayoutProps) 
   };
 
   return (
-    <Grid container className={styles.main_layout}>
+    <Grid container className={styles.main_layout} flexDirection="row">
       {LeftPanel && (
-        <Grid item xs={2}>
+        <Grid item xs={match ? 3 : 2} sm={0} height="100vh">
           <LeftPanel />
         </Grid>
       )}
@@ -28,7 +31,7 @@ export const MainLayout = ({MainPanel, RightPanel, LeftPanel}: MainLayoutProps) 
         <MainPanel />
       </Grid>
 
-      {RightPanel && (
+      {RightPanel && match && (
         <Grid item xs={3}>
           <RightPanel />
         </Grid>
