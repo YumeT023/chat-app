@@ -3,6 +3,8 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {signUpSchema} from "@/src/modules/auth/utils/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
+import {useAuthStore} from "@/src/modules/auth";
+import {useRouter} from "next/navigation";
 
 const common = {
   variant: "outlined" as "outlined",
@@ -12,6 +14,8 @@ const common = {
 };
 
 export const SignUp = () => {
+  const createUser = useAuthStore((state) => state.createUser);
+  const {push} = useRouter();
   const {
     register,
     handleSubmit,
@@ -20,8 +24,13 @@ export const SignUp = () => {
     resolver: yupResolver(signUpSchema),
   });
 
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const onSubmit = async (user: any) => {
+    try {
+      await createUser(user);
+      push("/room");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
