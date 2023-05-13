@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {loginSchema} from "@/src/modules/auth/utils/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
-import {useAuthStore} from "@/src/modules/auth/store";
+import {useAuthStore} from "@/src/modules/auth";
 import {useRouter} from "next/navigation";
 
 const common = {

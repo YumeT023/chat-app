@@ -1,8 +1,8 @@
-import {globalAxios as axios} from "@/src/conf/axios";
 import {CreatePayload, LoggedUser, Payload} from "@/src/modules/auth/types";
-import {formatError} from "@/src/modules/errors/utils/formatError";
+import {globalAxios as axios} from "@/src/conf/axios";
+import {formatError} from "@/src/modules/errors/utils";
 
-export const loginWithEmailAndPassword = async ({email, password}: Payload) => {
+export const loginUser = async ({email, password}: Payload) => {
   try {
     return await axios.post<LoggedUser>("/users/login", {email, password});
   } catch (err: unknown) {

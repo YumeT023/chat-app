@@ -4,7 +4,7 @@ import {Nullable, WithLoading} from "@/src/types/utility";
 import {CreatePayload, Payload} from "@/src/modules/auth/types";
 import {User} from "@/src/modules/user/types";
 import {AUTH_TOKEN_KEY} from "@/src/modules/auth/constants";
-import {createUser, loginWithEmailAndPassword} from "@/src/modules/auth/store/apiService";
+import {createUser, loginUser} from "@/src/lib/api";
 
 type State = WithLoading<{
   loggedUser: Nullable<User>;
@@ -23,7 +23,7 @@ export const useAuthStore = create<State & Actions>()(
       loginUser: async (credentials) => {
         set({loggedUser: null, isLoading: true});
         try {
-          const user = await loginWithEmailAndPassword(credentials);
+          const user = await loginUser(credentials);
           set({loggedUser: user?.data, isLoading: false});
         } catch (e) {
           set({isLoading: false});
