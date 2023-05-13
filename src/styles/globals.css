@@ -6,7 +6,8 @@
 
   --border-radius: 10px;
 
-  --background: 48, 48, 54;
+  --background: 58, 58, 58;
+  --background-darker: 38, 38, 44;
   --background-light: 255, 250, 255;
 }
 

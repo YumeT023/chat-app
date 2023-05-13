@@ -2,6 +2,6 @@ export const withErrorFilter = async <T extends unknown>(callbackfn: () => Promi
   try {
     return await callbackfn();
   } catch (e: any) {
-    throw e.response.data.message ?? e;
+    throw e.response?.data?.message ?? e;
   }
 };
