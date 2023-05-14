@@ -1,3 +1,3 @@
 # Chat App
 
-![img.png](img.png)
+![img.png](src/assets/img/screenshot.png)
