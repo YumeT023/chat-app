@@ -15,7 +15,7 @@ type Actions = {
   logoutUser: () => void;
 };
 
-export const useAuthStore = create<State & Actions>()(
+export const auth = create<State & Actions>()(
   persist(
     (set) => ({
       isLoading: false,

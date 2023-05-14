@@ -1,6 +1,6 @@
 import {PropsWithChildren, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {useAuthStore} from "@/src/modules/auth";
+import {auth} from "@/src/modules/auth";
 
 export type AuthenticatedProps = PropsWithChildren<{
   /**
@@ -10,7 +10,7 @@ export type AuthenticatedProps = PropsWithChildren<{
 }>;
 
 export const Authenticated = ({children, fallback = "/login"}: AuthenticatedProps) => {
-  const logged = useAuthStore((state) => state.loggedUser);
+  const logged = auth((state) => state.loggedUser);
   const {push} = useRouter();
   const [loading, setLoading] = useState(true);
 
