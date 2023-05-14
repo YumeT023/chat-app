@@ -1,11 +1,9 @@
-import {Avatar, Stack, Typography} from "@mui/material";
-import {useRouter} from "next/navigation";
 import {useEffect} from "react";
-import {HeadController} from "../common/utils";
-import {RoundedBox} from "../common/components/box";
-import dogeImage from "@/src/assets/img/doge-meme-icon.jpg";
-import styles from "@/src/styles/index.module.css";
-import Image from "next/image";
+import {useRouter} from "next/navigation";
+import {Flex} from "../ui/box";
+import {HeadController} from "@/src/ui/display";
+import {Avatar} from "@/src/ui/avatar";
+import doge from "@/src/assets/img/doge-meme-icon.jpg";
 
 const HomePage = () => {
   const {push} = useRouter();
@@ -16,15 +14,14 @@ const HomePage = () => {
 
   return (
     <HeadController title="home • sleek">
-      <RoundedBox>
-        <Stack className={styles.redirect_message_container}>
-          <Avatar>
-            <Image src={dogeImage} alt="doge meme icon" fill />
-          </Avatar>
-
-          <Typography variant="h4" fontWeight="bold" color="primary">{`Welcome back`}</Typography>
-        </Stack>
-      </RoundedBox>
+      <Flex center fullSize className="bg-amber-900">
+        <div className="w-[30rem] p-5 rounded-md bg-amber-100">
+          <Flex center>
+            <Avatar src={doge} />
+          </Flex>
+          <div className="font-semibold text-2xl text-center py-5 text-amber-800">Welcome back</div>
+        </div>
+      </Flex>
     </HeadController>
   );
 };
