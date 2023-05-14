@@ -1,3 +1,3 @@
 # Chat App
 
-![img.png](img.png)
+a sleek frontend clone
