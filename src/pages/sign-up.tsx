@@ -1,5 +1,5 @@
 import {SignUp} from "@/src/modules/auth";
-import {HeadController} from "../common/utils";
+import {HeadController} from "@/src/ui/display";
 
 const SignUpPage = () => {
   return (

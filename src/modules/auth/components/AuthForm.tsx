@@ -1,70 +1,53 @@
 import {BaseSyntheticEvent, PropsWithChildren} from "react";
-import {RoundedBox} from "../../../common/components/box";
-import {FullPageLoading} from "@/src/common/components";
-import {Avatar, Box, Button, Typography} from "@mui/material";
-import styles from "@/src/modules/auth/components/auth.module.css";
-import Image from "next/image";
-import dogeImage from "@/src/assets/img/doge-meme-icon.jpg";
+import {Flex} from "@/src/ui/box";
+import {Avatar} from "@/src/ui/avatar";
+import {Button} from "@/src/ui/button";
+import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import Link from "next/link";
 
 export type AuthFormProps = PropsWithChildren<{
   title: string;
   submitLabel: string;
   isLoading?: boolean;
-  or: {
-    route: string;
-    submitLabel: string;
-    caption: string;
+  alt: {
+    text: string;
+    to: string;
+    label: string;
   };
   handleSubmit: (e?: BaseSyntheticEvent) => void;
 }>;
 
-const common = {
-  variant: "outlined" as "outlined",
-  sx: {
-    width: "80%",
-  },
-};
-
 export const AuthForm = ({
   title,
   submitLabel,
-  or,
+  alt,
   handleSubmit,
   children,
   isLoading = false,
 }: AuthFormProps) => {
+  const {text, label, to} = alt;
   return (
-    <RoundedBox>
-      <form onSubmit={handleSubmit}>
-        <FullPageLoading loading={isLoading}>
-          <Box className={styles.login_container}>
-            <Box className={styles.login_head}>
-              <Avatar>
-                <Image src={dogeImage} alt="doge meme icon" fill />
-              </Avatar>
+    <Flex fullSize center>
+      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl p-5 bg-white">
+        <div className="flex justify-center">
+          <Avatar src={doge} />
+        </div>
 
-              <Typography variant="h4" fontWeight="bold" mt={2}>
-                {title}
-              </Typography>
-            </Box>
+        <div className="text-center text-2xl py-5 font-semibold">{title}</div>
 
-            <Box className={styles.login_body}>{children}</Box>
-            <Box className={styles.login_actions}>
-              <Button size="large" {...common} variant="contained" disableRipple type="submit">
-                {submitLabel}
-              </Button>
+        <div className="w-full pt-2 pb-3">{children}</div>
 
-              <Typography mt={3} variant="body2">
-                {or.caption}
-                <Link href={or.route} style={{textDecoration: "none", marginLeft: 1}}>
-                  {or.submitLabel}
-                </Link>
-              </Typography>
-            </Box>
-          </Box>
-        </FullPageLoading>
+        <div className="flex justify-center">
+          <Button loading={isLoading}>{submitLabel}</Button>
+        </div>
+
+        <div className="text-center pt-6">
+          <span className="mr-1">{text}</span>
+          <Link href={to} className="hover:underline">
+            {label}
+          </Link>
+        </div>
       </form>
-    </RoundedBox>
+    </Flex>
   );
 };

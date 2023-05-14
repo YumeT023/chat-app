@@ -1,6 +1,5 @@
 import {PropsWithChildren, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {FullPageLoading} from "@/src/common/components";
 import {useAuthStore} from "@/src/modules/auth";
 
 export type AuthenticatedProps = PropsWithChildren<{
@@ -23,5 +22,5 @@ export const Authenticated = ({children, fallback = "/login"}: AuthenticatedProp
     doCheckAuthentication();
   }, [push, logged, fallback]);
 
-  return <>{loading ? <FullPageLoading /> : children}</>;
+  return <>{loading ? <span>loading</span> : children}</>;
 };

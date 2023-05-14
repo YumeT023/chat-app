@@ -1,19 +1,14 @@
-import {TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {signUpSchema} from "@/src/modules/auth/utils/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {useAuthStore} from "@/src/modules/auth";
 import {useRouter} from "next/navigation";
-
-const common = {
-  variant: "outlined" as "outlined",
-  sx: {
-    width: "80%",
-  },
-};
+import {InputField} from "@/src/ui/form";
+import {useEffect} from "react";
 
 export const SignUp = () => {
+  const loggedUser = useAuthStore((state) => state.loggedUser);
   const createUser = useAuthStore((state) => state.createUser);
   const isLoading = useAuthStore((state) => state.isLoading);
   const {push} = useRouter();
@@ -24,6 +19,10 @@ export const SignUp = () => {
   } = useForm({
     resolver: yupResolver(signUpSchema),
   });
+
+  useEffect(() => {
+    loggedUser && push("/room");
+  }, []);
 
   const onSubmit = async (user: any) => {
     try {
@@ -40,44 +39,35 @@ export const SignUp = () => {
       submitLabel="Create an account"
       handleSubmit={handleSubmit(onSubmit)}
       isLoading={isLoading}
-      or={{
-        caption: `Already have an account ?`,
-        route: "/login",
-        submitLabel: "Login",
+      alt={{
+        text: `Already have an account ?`,
+        to: "/login",
+        label: "Login",
       }}
     >
-      <TextField
-        size="medium"
+      <InputField
         placeholder="Name"
-        error={!!errors.name?.message}
-        {...common}
+        my={2}
+        error={`${errors.name?.message ?? ""}`}
         {...register("name")}
-        helperText={<>{errors.name?.message}</>}
       />
-      <TextField
-        size="medium"
+      <InputField
         placeholder="Email"
-        error={!!errors.email?.message}
-        {...common}
+        my={2}
+        error={`${errors.email?.message ?? ""}`}
         {...register("email")}
-        helperText={<>{errors.email?.message}</>}
       />
-      <TextField
-        size="medium"
+      <InputField
         placeholder="Password"
-        type="password"
-        error={!!errors.password?.message}
-        {...common}
+        my={2}
+        error={`${errors.password?.message ?? ""}`}
         {...register("password")}
-        helperText={<>{errors.password?.message}</>}
       />
-      <TextField
-        size="medium"
-        placeholder="bio"
-        error={!!errors.email?.message}
-        {...common}
+      <InputField
+        placeholder="Bio"
+        my={2}
+        error={`${errors.bio?.message ?? ""}`}
         {...register("bio")}
-        helperText={<>{errors.bio?.message}</>}
       />
     </AuthForm>
   );
