@@ -1,16 +1,16 @@
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {loginSchema} from "@/src/modules/auth/utils/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
-import {useAuthStore} from "@/src/modules/auth";
-import {useRouter} from "next/navigation";
 import {InputField} from "@/src/ui/form";
-import {useEffect} from "react";
+import {auth} from "@/src/modules/auth";
 
 export const Login = () => {
-  const loggedUser = useAuthStore((state) => state.loggedUser);
-  const login = useAuthStore((state) => state.loginUser);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const loggedUser = auth((state) => state.loggedUser);
+  const login = auth((state) => state.loginUser);
+  const isLoading = auth((state) => state.isLoading);
   const {push} = useRouter();
   const {
     register,
@@ -21,13 +21,13 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    loggedUser && push("/room");
+    loggedUser && push("/channel/cid");
   }, []);
 
   const onSubmit = async (payload: any) => {
     try {
       await login(payload);
-      push("/room");
+      push("/channel/cid");
     } catch (e) {
       console.error("error> ", e);
     }
@@ -55,6 +55,7 @@ export const Login = () => {
       <InputField
         disabled={isLoading}
         placeholder="Password"
+        type="password"
         my={2}
         error={`${errors.password?.message ?? ""}`}
         {...register("password")}

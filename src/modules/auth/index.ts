@@ -1,2 +1,2 @@
 export * from "./components";
-export * from "./hooks/useAuthStore";
+export * from "@/src/store/auth";

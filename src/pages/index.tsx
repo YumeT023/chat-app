@@ -9,7 +9,7 @@ const HomePage = () => {
   const {push} = useRouter();
 
   useEffect(() => {
-    push("/room");
+    push("/channel/cid");
   }, [push]);
 
   return (
