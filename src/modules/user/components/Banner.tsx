@@ -1,0 +1,28 @@
+import {Avatar} from "@/src/ui/avatar";
+import {StaticImageData} from "next/image";
+import doge from "@/src/assets/img/doge-meme-icon.jpg";
+
+export type BannerProps = {
+  img?: string | StaticImageData;
+  bio?: string;
+  name: string;
+};
+
+export const Banner = ({name, bio, img = doge}: BannerProps) => {
+  return (
+    <div className="w-full">
+      <div className="h-24 relative bg-amber-400 mb-10">
+        <div className="absolute top-1/3 left-1/2 h-24 w-24 transform -translate-x-1/2 sm:translate-x-0 sm:left-28">
+          <Avatar src={img} className="h-full w-full border-2 border-amber-700 rounded-full" />
+        </div>
+      </div>
+
+      <div className="py-1">
+        {bio && <div className="text-md mb-4 text-center py-1 italic">{bio}</div>}
+        <div className="text-md mt-2 p-1 w-fit m-auto sm:ml-28 font-semibold rounded-full bg-amber-300">
+          @{name}
+        </div>
+      </div>
+    </div>
+  );
+};
