@@ -44,8 +44,8 @@ export const auth = create<State & Actions>()(
     }),
     {
       name: AUTH_TOKEN_KEY,
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({loggedUser: state.loggedUser}),
-    },
-  ),
+    }
+  )
 );
