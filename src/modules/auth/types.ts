@@ -1,7 +1,10 @@
 import {User} from "@/src/modules/user/types";
 
-export type LoggedUser = User & {
-  token: string;
+export type LoggedUser = {
+  user: User & {
+    token: string;
+  };
+  status: boolean;
 };
 
 export type Payload = {
