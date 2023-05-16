@@ -7,12 +7,8 @@ export type AvatarProps = {
 
 export const Avatar = ({src, className = ""}: AvatarProps) => {
   return (
-    <div className="h-14 w-14">
-      <Image
-        src={src}
-        alt="default-avatar"
-        className={`rounded-full object-contain ${className}`}
-      />
+    <div className={`h-14 w-14 ${className}`}>
+      <Image src={src} alt="default-avatar" className="rounded-full object-contain" />
     </div>
   );
 };

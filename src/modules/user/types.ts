@@ -11,6 +11,7 @@ export type User = {
   email: string;
   name: string;
   googleId: Nullable<string>;
-  bio: string;
   status: UserStatus;
+  bio?: string;
+  image?: string;
 };

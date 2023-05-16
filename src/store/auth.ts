@@ -1,13 +1,12 @@
 import {create} from "zustand";
 import {createJSONStorage, persist} from "zustand/middleware";
 import {Nullable, WithLoading} from "@/src/types/utility";
-import {CreatePayload, Payload} from "@/src/modules/auth/types";
-import {User} from "@/src/modules/user/types";
+import {CreatePayload, LoggedUser, Payload} from "@/src/modules/auth/types";
 import {AUTH_TOKEN_KEY} from "@/src/modules/auth/constants";
 import {createUser, loginUser} from "@/src/lib/api";
 
 type State = WithLoading<{
-  loggedUser: Nullable<User>;
+  loggedUser: Nullable<LoggedUser>;
 }>;
 type Actions = {
   createUser: (user: CreatePayload) => Promise<void>;
@@ -45,8 +44,8 @@ export const auth = create<State & Actions>()(
     }),
     {
       name: AUTH_TOKEN_KEY,
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({loggedUser: state.loggedUser}),
-    }
-  )
+    },
+  ),
 );

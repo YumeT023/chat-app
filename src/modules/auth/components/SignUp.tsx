@@ -21,7 +21,7 @@ export const SignUp = () => {
   const onSubmit = async (user: any) => {
     try {
       await createUser(user);
-      push("/channel/cid");
+      push("/profile");
     } catch (e) {
       console.error(e);
     }

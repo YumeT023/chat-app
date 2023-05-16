@@ -21,13 +21,13 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    loggedUser && push("/channel/cid");
+    loggedUser && push("/profile");
   }, []);
 
   const onSubmit = async (payload: any) => {
     try {
       await login(payload);
-      push("/channel/cid");
+      push("/profile");
     } catch (e) {
       console.error("error> ", e);
     }

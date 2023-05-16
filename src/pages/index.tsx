@@ -9,7 +9,7 @@ const HomePage = () => {
   const {push} = useRouter();
 
   useEffect(() => {
-    push("/channel/cid");
+    push("/profile");
   }, [push]);
 
   return (
