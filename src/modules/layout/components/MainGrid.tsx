@@ -4,16 +4,20 @@ import {Header, MainPanelContainer, SidebarPanelContainer} from "@/src/modules/l
 export type MainGridProps = PropsWithChildren<{
   sidePanel?: ReactNode;
   rootClass?: string;
+  title?: string;
 }>;
 
 export const MainGrid = ({
   children,
   rootClass,
+  title = "",
   sidePanel = <SidebarPanelContainer />,
 }: MainGridProps) => {
   return (
     <div className="h-full">
-      <MainPanelContainer className={rootClass}>{children}</MainPanelContainer>
+      <MainPanelContainer className={rootClass} title={title}>
+        {children}
+      </MainPanelContainer>
       <Header />
       {sidePanel}
     </div>

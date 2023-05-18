@@ -5,7 +5,11 @@ import {Profile} from "@/src/modules/user";
 const ViewProfilePage = () => {
   return (
     <Authenticated>
-      <MainGrid sidePanel={<SidePanel />} rootClass="flex items-center justify-center h-full">
+      <MainGrid
+        sidePanel={<SidePanel />}
+        rootClass="flex items-center justify-center h-full"
+        title={"Profile"}
+      >
         <Profile />
       </MainGrid>
     </Authenticated>

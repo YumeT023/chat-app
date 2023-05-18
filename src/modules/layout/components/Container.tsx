@@ -1,8 +1,12 @@
 import {PropsWithChildren} from "react";
+import {FaHashtag} from "react-icons/fa";
 
-type ContainerProps = PropsWithChildren<{
+export type ContainerProps = PropsWithChildren<{
   className?: string;
 }>;
+export type MainPanelContainerProps = ContainerProps & {
+  title: string;
+};
 
 export const MainContainer = ({children, className}: ContainerProps) => {
   return <div className={`h-screen ${className}`}>{children}</div>;
@@ -13,19 +17,18 @@ export const SidebarPanelContainer = ({children, className = ""}: ContainerProps
   return <div className={cn}>{children}</div>;
 };
 
-export type MainPanelContainerProps = ContainerProps & {
-  title?: string;
-};
-
-export const MainPanelContainer = ({
-  children,
-  title = "",
-  className = "",
-}: MainPanelContainerProps) => {
+export const MainPanelContainer = ({children, title, className = ""}: MainPanelContainerProps) => {
   const cn = `sm:ml-64 h-full pt-12 ${className}`;
   return (
     <div className={cn}>
-      <div className="h-full w-full bg-accent-200">{children}</div>
+      <div className="h-full w-full bg-dark-250 border-l border-l-dark-300">
+        <div className="h-14 border-y border-dark-300 flex items-center">
+          <div className="ml-4 text-xl font-semibold text-primary-200 flex items-center gap-2">
+            <FaHashtag /> <span>{title}</span>
+          </div>
+        </div>
+        <div>{children}</div>
+      </div>
     </div>
   );
 };
