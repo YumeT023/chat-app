@@ -1,13 +1,17 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
+        dark: {
+          100: "#19171d",
+          200: "#1d1c1d",
+          300: "#27242e",
+        },
         primary: {
           100: "#4a154b",
           200: "#f4ede4",
-          dark: "#1d1c1d",
           white: "#fff",
         },
         accent: {

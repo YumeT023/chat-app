@@ -43,7 +43,7 @@ export const AuthForm = ({
           <Button loading={isLoading}>{submitLabel}</Button>
         </div>
 
-        <div className="text-center pt-6 text-primary-dark">
+        <div className="text-center pt-6 text-dark-200">
           <span className="mr-1">{text}</span>
           <Link href={to} className="hover:underline text-accent-100">
             {label}
