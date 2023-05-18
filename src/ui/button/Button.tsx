@@ -1,5 +1,6 @@
 import {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import {Spinner} from "@/src/ui/loading";
+import clsx from "clsx";
 
 export type ButtonProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -9,11 +10,18 @@ export type ButtonProps = DetailedHTMLProps<
 };
 
 export const Button = ({disabled, loading, children, ...props}: ButtonProps) => {
-  const cn = `flex justify-between items-center gap-3 font-bold outline-none
-    transition duration-200 ease-in-out text-sm py-4 px-8 bg-amber-900 rounded-lg text-white hover:bg-opacity-90 disabled:bg-opacity-70`;
+  const box = `flex justify-between items-center gap-3 outline-none py-4 px-8 rounded-lg bg-primary-100 hover:bg-opacity-95 disabled:bg-opacity-80`;
+  const transition = `transition duration-200 ease-in-out`;
+  const typo = `fon-bold text-sm text-white`;
+
   return (
-    <button data-testid="button" disabled={disabled || loading} className={cn} {...props}>
-      {loading && <Spinner />}
+    <button
+      data-testid="button"
+      disabled={disabled || loading}
+      className={clsx(transition, box, typo)}
+      {...props}
+    >
+      <Spinner className={`${clsx(!loading && "hidden")}`} />
       {children}
     </button>
   );

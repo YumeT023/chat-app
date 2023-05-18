@@ -41,26 +41,26 @@ export const SignUp = () => {
     >
       <InputField
         placeholder="Name"
-        my={2}
+        root="my-2"
         error={`${errors.name?.message ?? ""}`}
         {...register("name")}
       />
       <InputField
         placeholder="Email"
-        my={2}
+        root="my-2"
         error={`${errors.email?.message ?? ""}`}
         {...register("email")}
       />
       <InputField
         placeholder="Password"
+        root="my-2"
         type="password"
-        my={2}
         error={`${errors.password?.message ?? ""}`}
         {...register("password")}
       />
       <InputField
         placeholder="Bio"
-        my={2}
+        root="my-2"
         error={`${errors.bio?.message ?? ""}`}
         {...register("bio")}
       />

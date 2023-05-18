@@ -48,7 +48,7 @@ export const Login = () => {
       <InputField
         disabled={isLoading}
         placeholder="Email"
-        my={2}
+        root="my-2"
         error={`${errors.email?.message ?? ""}`}
         {...register("email")}
       />
@@ -56,7 +56,7 @@ export const Login = () => {
         disabled={isLoading}
         placeholder="Password"
         type="password"
-        my={2}
+        root="my-2"
         error={`${errors.password?.message ?? ""}`}
         {...register("password")}
       />

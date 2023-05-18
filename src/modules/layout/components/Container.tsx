@@ -4,8 +4,8 @@ type ContainerProps = PropsWithChildren<{
   className?: string;
 }>;
 
-export const MainContainer = ({children}: ContainerProps) => {
-  return <div className="h-screen">{children}</div>;
+export const MainContainer = ({children, className}: ContainerProps) => {
+  return <div className={`h-screen ${className}`}>{children}</div>;
 };
 
 export const SidebarPanelContainer = ({children, className = ""}: ContainerProps) => {

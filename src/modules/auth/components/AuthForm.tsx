@@ -29,11 +29,13 @@ export const AuthForm = ({
   return (
     <Flex fullSize center>
       <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl p-5 bg-white">
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-2">
           <Avatar src={doge} />
         </div>
 
-        <div className="text-center text-2xl py-5 font-semibold">{title}</div>
+        <div className="text-center text-4xl pb-3 font-bold text-accent-300">
+          {title}
+        </div>
 
         <div className="w-full pt-2 pb-3">{children}</div>
 
@@ -41,9 +43,9 @@ export const AuthForm = ({
           <Button loading={isLoading}>{submitLabel}</Button>
         </div>
 
-        <div className="text-center pt-6">
+        <div className="text-center pt-6 text-primary-dark">
           <span className="mr-1">{text}</span>
-          <Link href={to} className="hover:underline">
+          <Link href={to} className="hover:underline text-accent-100">
             {label}
           </Link>
         </div>
