@@ -1,23 +1,26 @@
 import {Avatar, AvatarProps} from "@/src/ui/avatar";
 import {UserStatus} from "@/src/modules/user/types";
 
-export const statusColor = {
-  "0": "bg-blue-300",
-  "1": "bg-red-400",
-  "2": "bg-green-400",
+export const statusColorClasses = {
+  "0": "bg-primary-200",
+  "1": "bg-primary-400",
+  "2": "bg-primary-400",
 };
 
 export type UserAvatarProps = AvatarProps & {
-  statusIndex: keyof typeof statusColor;
+  userStatus: UserStatus;
+  rounded?: boolean;
 };
 
-export const UserAvatar = ({statusIndex = "0", ...props}: UserAvatarProps) => {
+export const UserAvatar = ({userStatus = UserStatus.Away, ...props}: UserAvatarProps) => {
+  const statusText = UserStatus[userStatus] ?? "Away";
+  const statusColor = statusColorClasses[userStatus];
   return (
     <div className="relative">
       <Avatar {...props} />
       <div
-        className={`rounded-full absolute right-0 bottom-3 w-4 h-4 ${statusColor[statusIndex]} border-2 border-black cursor-pointer`}
-        title={UserStatus[statusIndex] ?? UserStatus[0]}
+        className={`rounded-full absolute right-0 bottom-3 w-4 h-4 cursor-pointer bg-primary-200 ${statusColor}`}
+        title={statusText}
       ></div>
     </div>
   );
