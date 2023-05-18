@@ -1,5 +1,5 @@
 import {PropsWithChildren, ReactNode} from "react";
-import {MainPanelContainer, SidebarPanelContainer} from "@/src/modules/layout";
+import {Header, MainPanelContainer, SidebarPanelContainer} from "@/src/modules/layout";
 
 export type MainGridProps = PropsWithChildren<{
   sidePanel?: ReactNode;
@@ -14,6 +14,7 @@ export const MainGrid = ({
   return (
     <div className="h-full">
       <MainPanelContainer className={rootClass}>{children}</MainPanelContainer>
+      <Header />
       {sidePanel}
     </div>
   );
