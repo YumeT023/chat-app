@@ -19,6 +19,8 @@ export const SidebarPanelContainer = ({children, className = ""}: ContainerProps
 
 export const MainPanelContainer = ({children, title, className = ""}: MainPanelContainerProps) => {
   const cn = `sm:ml-64 h-full pt-12 ${className}`;
+  const maxH = `calc(100% - 3.5rem)`;
+
   return (
     <div className={cn}>
       <div className="h-full w-full bg-dark-250 border-l border-l-dark-300">
@@ -27,7 +29,9 @@ export const MainPanelContainer = ({children, title, className = ""}: MainPanelC
             <FaHashtag /> <span>{title}</span>
           </div>
         </div>
-        <div>{children}</div>
+        <div className="overflow-y-auto" style={{maxHeight: maxH}}>
+          {children}
+        </div>
       </div>
     </div>
   );
