@@ -17,7 +17,7 @@ export const UserAvatar = ({statusIndex = "0", ...props}: UserAvatarProps) => {
       <Avatar {...props} />
       <div
         className={`rounded-full absolute right-0 bottom-3 w-4 h-4 ${statusColor[statusIndex]} border-2 border-black cursor-pointer`}
-        title={UserStatus[statusIndex] ?? UserStatus[0]}
+        title={UserStatus[statusIndex] ?? UserStatus["Away"]}
       ></div>
     </div>
   );
