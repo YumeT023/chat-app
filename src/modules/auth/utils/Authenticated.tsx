@@ -1,6 +1,7 @@
 import {PropsWithChildren, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {auth} from "@/src/modules/auth";
+import {FullPageLoading} from "@/src/ui/loading";
 
 export type AuthenticatedProps = PropsWithChildren<{
   /**
@@ -22,5 +23,10 @@ export const Authenticated = ({children, fallback = "/login"}: AuthenticatedProp
     doCheckAuthentication();
   }, [push, logged, fallback]);
 
-  return <>{loading ? <span>loading</span> : children}</>;
+  return (
+    <>
+      <FullPageLoading isActive={loading} />
+      {!loading && children}
+    </>
+  );
 };
