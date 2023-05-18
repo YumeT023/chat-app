@@ -7,7 +7,7 @@ export type MainGridProps = PropsWithChildren<{
   title?: string;
 }>;
 
-export const MainGrid = ({
+export const MainLayout = ({
   children,
   rootClass,
   title = "",
