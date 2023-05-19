@@ -18,7 +18,10 @@ export const Header = () => {
       />
 
       <Link href="/profile" title={logged?.user.name || "dummy"}>
-        <Avatar src={logged?.user.image || doge} className="h-8 w-8" />
+        <Avatar
+          src={logged?.user.image || doge}
+          className="h-8 w-8 rounded-full hover:ring-2 hover:ring-accent-300"
+        />
       </Link>
     </div>
   );
