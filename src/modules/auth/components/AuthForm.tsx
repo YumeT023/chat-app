@@ -28,24 +28,22 @@ export const AuthForm = ({
   const {text, label, to} = alt;
   return (
     <Flex fullSize center>
-      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl p-5 bg-white">
-        <div className="flex justify-center mb-2">
+      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl bg-white p-5">
+        <div className="mb-2 flex justify-center">
           <Avatar src={doge} />
         </div>
 
-        <div className="text-center text-4xl pb-3 font-bold text-accent-300">
-          {title}
-        </div>
+        <div className="pb-3 text-center text-4xl font-bold text-accent-300">{title}</div>
 
-        <div className="w-full pt-2 pb-3">{children}</div>
+        <div className="w-full pb-3 pt-2">{children}</div>
 
         <div className="flex justify-center">
           <Button loading={isLoading}>{submitLabel}</Button>
         </div>
 
-        <div className="text-center pt-6 text-dark-200">
+        <div className="pt-6 text-center text-dark-200">
           <span className="mr-1">{text}</span>
-          <Link href={to} className="hover:underline text-accent-100">
+          <Link href={to} className="text-accent-100 hover:underline">
             {label}
           </Link>
         </div>

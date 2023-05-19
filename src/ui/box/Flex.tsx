@@ -8,7 +8,7 @@ export type FlexProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 export const Flex = ({children, fullSize, center, className = "", ...props}: FlexProps) => {
   return (
     <div
-      className={`flex ${center ? "justify-center items-center" : ""}  ${
+      className={`flex ${center ? "items-center justify-center" : ""}  ${
         fullSize ? "h-full w-full" : ""
       } ${className}`}
       {...props}

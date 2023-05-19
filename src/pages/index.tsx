@@ -15,11 +15,11 @@ const HomePage = () => {
   return (
     <HeadController title="home • sleek">
       <Flex center fullSize className="bg-amber-900">
-        <div className="w-[30rem] p-5 rounded-md bg-amber-100">
+        <div className="w-[30rem] rounded-md bg-amber-100 p-5">
           <Flex center>
             <Avatar src={doge} />
           </Flex>
-          <div className="font-semibold text-2xl text-center py-5 text-amber-800">Welcome back</div>
+          <div className="py-5 text-center text-2xl font-semibold text-amber-800">Welcome back</div>
         </div>
       </Flex>
     </HeadController>

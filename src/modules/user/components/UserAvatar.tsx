@@ -16,7 +16,7 @@ export const UserAvatar = ({statusIndex = "0", ...props}: UserAvatarProps) => {
     <div className="relative">
       <Avatar {...props} />
       <div
-        className={`rounded-full absolute right-0 bottom-3 w-4 h-4 ${statusColor[statusIndex]} border-2 border-black cursor-pointer`}
+        className={`absolute bottom-3 right-0 h-4 w-4 rounded-full ${statusColor[statusIndex]} cursor-pointer border-2 border-black`}
         title={UserStatus[statusIndex] ?? UserStatus["Away"]}
       ></div>
     </div>

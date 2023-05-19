@@ -7,12 +7,12 @@ export const Header = () => {
   const logged = auth((state) => state.loggedUser);
 
   return (
-    <div className="fixed top-0 left-0 h-12 w-full px-3 bg-dark-100 flex items-center justify-between gap-10">
+    <div className="fixed left-0 top-0 flex h-12 w-full items-center justify-between gap-10 bg-dark-100 px-3">
       <div className="w-56"></div>
 
       <InputField
         placeholder={`Search ${logged?.user.name ?? ""}`}
-        className="py-[0.35rem] m-0 bg-dark-200 text-gray-300 text-sm border-gray-600 hover:border-gray-500"
+        className="m-0 border-gray-600 bg-dark-200 py-[0.35rem] text-sm text-gray-300 hover:border-gray-500"
         root="w-3/4"
       />
 

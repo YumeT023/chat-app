@@ -23,9 +23,9 @@ export const MainPanelContainer = ({children, title, className = ""}: MainPanelC
 
   return (
     <div className={cn}>
-      <div className="h-full w-full bg-dark-250 border-l border-l-dark-300">
-        <div className="h-14 border-y border-dark-300 flex items-center">
-          <div className="ml-4 text-xl font-semibold text-primary-200 flex items-center gap-2">
+      <div className="h-full w-full border-l border-l-dark-300 bg-dark-250">
+        <div className="flex h-14 items-center border-y border-dark-300">
+          <div className="ml-4 flex items-center gap-2 text-xl font-semibold text-primary-200">
             <FaHashtag /> <span>{title}</span>
           </div>
         </div>

@@ -11,7 +11,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     return (
       <div className={root}>
         <input ref={ref} className={cn} data-testid="input-field" {...props} />
-        {error !== null && <div className="text-red-600 text-sm py-2 px-2">{error}</div>}
+        {error !== null && <div className="px-2 py-2 text-sm text-red-600">{error}</div>}
       </div>
     );
   }
