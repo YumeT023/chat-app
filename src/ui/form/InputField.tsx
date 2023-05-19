@@ -23,9 +23,9 @@ export type InputFieldProps = {
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
     {
-      className,
       name,
       explicitName,
+      className = "",
       sizeVariant = "lg",
       root = "",
       labelCls = "",
@@ -37,7 +37,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ) => {
     const size = sizeClasses[sizeVariant];
     const mode = variantClasses[variant];
-    const cn = `w-full rounded-md border text-sm outline-none focus-visible:shadow-none ${size} ${mode} ${className}`;
+    const cn = `rounded-md border text-sm outline-none focus-visible:shadow-none ${size} ${mode} ${className}`;
 
     return (
       <div className={root}>

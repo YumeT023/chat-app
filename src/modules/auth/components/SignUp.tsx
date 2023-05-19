@@ -42,12 +42,14 @@ export const SignUp = () => {
       <InputField
         placeholder="Name"
         root="my-2"
+        className="w-full"
         error={`${errors.name?.message ?? ""}`}
         {...register("name")}
       />
       <InputField
         placeholder="Email"
         root="my-2"
+        className="w-full"
         error={`${errors.email?.message ?? ""}`}
         {...register("email")}
       />
@@ -55,12 +57,14 @@ export const SignUp = () => {
         placeholder="Password"
         root="my-2"
         type="password"
+        className="w-full"
         error={`${errors.password?.message ?? ""}`}
         {...register("password")}
       />
       <InputField
         placeholder="Bio"
         root="my-2"
+        className="w-full"
         error={`${errors.bio?.message ?? ""}`}
         {...register("bio")}
       />

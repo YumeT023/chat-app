@@ -49,6 +49,7 @@ export const Login = () => {
         disabled={isLoading}
         placeholder="Email"
         root="my-2"
+        className="w-full"
         error={`${errors.email?.message ?? ""}`}
         {...register("email")}
       />
@@ -57,6 +58,7 @@ export const Login = () => {
         placeholder="Password"
         type="password"
         root="my-2"
+        className="w-full"
         error={`${errors.password?.message ?? ""}`}
         {...register("password")}
       />
