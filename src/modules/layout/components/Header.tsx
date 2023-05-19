@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {Avatar} from "@/src/ui/avatar";
 import {auth} from "@/src/store";
 import {InputField} from "@/src/ui/form";
@@ -16,9 +17,9 @@ export const Header = () => {
         root="w-3/4"
       />
 
-      <div title={logged?.user.name || "dummy"}>
+      <Link href="/profile" title={logged?.user.name || "dummy"}>
         <Avatar src={logged?.user.image || doge} className="h-8 w-8" />
-      </div>
+      </Link>
     </div>
   );
 };

@@ -1,33 +1,30 @@
 import {StaticImageData} from "next/image";
-import {UserAvatar} from "@/src/modules/user";
+import {UserAvatar, UserInfo} from "@/src/modules/user";
+import {Flex} from "@/src/ui/box";
+import {UserStatus} from "@/src/modules/user/types";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
 
 export type BannerProps = {
+  name: string;
+  email: string;
+  status: UserStatus;
   img?: string | StaticImageData;
   bio?: string;
-  statusIndication: "0" | "1" | "2";
-  name: string;
 };
 
-export const Banner = ({name, statusIndication, bio, img}: BannerProps) => {
+export const Banner = ({name, email, status = UserStatus.Connected}: BannerProps) => {
   return (
-    <div className="w-full">
-      <div className="relative mb-10 h-24">
-        <div className="absolute left-1/2 top-1/3 h-24 w-24 -translate-x-1/2 transform sm:left-28 sm:translate-x-0">
-          <UserAvatar
-            src={img || doge}
-            className="h-full w-full rounded-full border-2 border-gray-50"
-            statusIndex={statusIndication}
-          />
+    <div className="flex h-full flex-col md:flex-row">
+      <Flex
+        fullSize
+        className="xl:w64 flex-col items-center gap-10 border-r border-r-dark-300 bg-dark-100 py-10"
+      >
+        <UserAvatar src={doge} className="h-28 w-28 md:h-60 md:w-60" status={status} />
+        <div className="rounded-full bg-primary-200 p-3 font-semibold text-dark-300 md:text-2xl">
+          {name}
         </div>
-      </div>
-
-      <div className="py-1">
-        {bio && <div className="text-md mb-4 py-1 text-center italic">{bio}</div>}
-        <div className="text-md m-auto mt-2 w-fit rounded-full bg-amber-300 p-1 font-semibold sm:ml-28">
-          @{name}
-        </div>
-      </div>
+      </Flex>
+      <UserInfo status={status} email={email} />
     </div>
   );
 };
