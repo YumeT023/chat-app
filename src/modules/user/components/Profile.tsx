@@ -7,7 +7,13 @@ export const Profile = () => {
 
   return (
     <div className="h-full w-full">
-      <Banner img={user.image} bio={user.bio} name={user.name} status={user.status as any} />
+      <Banner
+        img={user.image}
+        bio={user.bio}
+        name={user.name}
+        email={user.email}
+        status={user.status as any}
+      />
     </div>
   );
 };
