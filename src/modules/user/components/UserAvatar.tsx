@@ -1,11 +1,12 @@
+import {FiCircle} from "react-icons/fi";
 import {Avatar, AvatarProps} from "@/src/ui/avatar";
 import {UserStatus} from "@/src/modules/user/types";
 import {auth} from "@/src/store";
 
 export const statusColor = {
-  "0": "bg-blue-300",
-  "1": "bg-red-400",
-  "2": "bg-green-400",
+  "0": "bg-accent-300",
+  "1": "bg-accent-200",
+  "2": "bg-accent-400",
 };
 
 export type UserAvatarProps = AvatarProps & {
@@ -19,10 +20,10 @@ export const UserAvatar = ({root = "", ...props}: UserAvatarProps) => {
   return (
     <div className={`relative h-fit w-fit ${root}`}>
       <Avatar {...props} />
-      <div
-        className={`absolute bottom-0 right-0 h-4 w-4 cursor-pointer  rounded-full border-2 border-black ${statusColor[userStatus]}`}
+      <FiCircle
+        className={`absolute bottom-0 right-0 h-4 w-4 cursor-pointer rounded-full ${statusColor[userStatus]}`}
         title={UserStatus[userStatus]}
-      ></div>
+      />
     </div>
   );
 };
