@@ -12,6 +12,7 @@ export const Header = () => {
       <div className="w-56"></div>
 
       <InputField
+        name="query"
         placeholder={`Search ${logged?.user.name ?? ""}`}
         className="m-0 border-gray-600 bg-dark-200 py-[0.35rem] text-sm text-gray-300 hover:border-gray-500"
         root="w-3/4"
