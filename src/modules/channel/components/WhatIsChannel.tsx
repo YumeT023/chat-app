@@ -16,7 +16,10 @@ export const WhatIsChannel = () => {
       </Flex>
 
       <div className="ml-16 flex-col text-accent-100">
-        <Link className="flex items-center gap-2 py-2 opacity-95 hover:opacity-100" href="">
+        <Link
+          className="flex items-center gap-2 py-2 opacity-95 hover:opacity-100"
+          href="/channel/create"
+        >
           <VscNewFile /> Create channel
         </Link>
       </div>
