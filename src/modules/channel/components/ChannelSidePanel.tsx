@@ -4,8 +4,8 @@ import {Avatar} from "@/src/ui/avatar";
 import {channel} from "@/src/store";
 import {VscRepoPull} from "react-icons/vsc";
 import {FiHash} from "react-icons/fi";
-import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {useEffect} from "react";
+import doge from "@/src/assets/img/doge-meme-icon.jpg";
 
 export const ChannelSidePanel = () => {
   const channels = channel((x) => x.channels);
