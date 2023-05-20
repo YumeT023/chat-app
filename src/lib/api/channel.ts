@@ -9,3 +9,11 @@ export const createChannel = async (toCreate: CreateChannel) => {
     throw formatError(err);
   }
 };
+
+export const getChannelById = async (id: number) => {
+  try {
+    return await axios.get<Channel>(`/channel/${id}`);
+  } catch (err: unknown) {
+    throw formatError(err);
+  }
+};
