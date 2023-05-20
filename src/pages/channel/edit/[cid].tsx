@@ -5,6 +5,7 @@ import {Channel} from "@/src/modules/channel/types";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {FullPageLoading} from "@/src/ui/loading";
 import {EditChannel} from "@/src/modules/channel";
+import {Authenticated} from "@/src/modules/auth/utils/Authenticated";
 
 const EditChannelPage = ({id}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [state, setState] = useState<Channel["channel"] | null>(null);
@@ -20,10 +21,12 @@ const EditChannelPage = ({id}: InferGetServerSidePropsType<typeof getServerSideP
   }, []);
 
   return (
-    <MainLayout title="Edit channel" sidePanel={<SidePanel />}>
-      {state && <EditChannel toEdit={state} />}
-      <FullPageLoading isActive={isLoading} />
-    </MainLayout>
+    <Authenticated>
+      <MainLayout title="Edit channel" sidePanel={<SidePanel />}>
+        {state && <EditChannel toEdit={state} />}
+        <FullPageLoading isActive={isLoading} />
+      </MainLayout>
+    </Authenticated>
   );
 };
 

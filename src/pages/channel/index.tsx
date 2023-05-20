@@ -1,12 +1,15 @@
 import {MainLayout, SidePanel} from "@/src/modules/layout/components";
 import {WhatIsChannel} from "@/src/modules/channel";
+import {Authenticated} from "@/src/modules/auth/utils/Authenticated";
 
-const ChannelPage = () => {
+const MainChannelPage = () => {
   return (
-    <MainLayout sidePanel={<SidePanel />} title="Channel">
-      <WhatIsChannel />
-    </MainLayout>
+    <Authenticated>
+      <MainLayout sidePanel={<SidePanel />} title="Channel">
+        <WhatIsChannel />
+      </MainLayout>
+    </Authenticated>
   );
 };
 
-export default ChannelPage;
+export default MainChannelPage;
