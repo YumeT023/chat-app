@@ -36,7 +36,7 @@ export const ChannelSidePanel = () => {
         {channels.channels.map((channel) => (
           <Link
             key={channel.id}
-            href="/channel"
+            href={`/channel/${channel.id}`}
             className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
           >
             <FiHash className="h-6 w-6" />
