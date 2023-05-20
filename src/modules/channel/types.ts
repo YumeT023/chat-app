@@ -13,7 +13,12 @@ export type Channel = {
       id: number;
       name: string;
       email: string;
-    }
+    };
   };
+  status: boolean;
+};
+
+export type ChannelList = {
+  channels: Array<Channel["channel"]>;
   status: boolean;
 };
