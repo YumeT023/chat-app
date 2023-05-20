@@ -7,9 +7,18 @@ export type CreateChannel = {
 export type Channel = {
   channel: Omit<CreateChannel, "members"> & {
     id: number;
-    ownerId: number;
     updatedAt: Date;
     createdAt: Date;
+    owner: {
+      id: number;
+      name: string;
+      email: string;
+    };
   };
+  status: boolean;
+};
+
+export type ChannelList = {
+  channels: Array<Channel["channel"]>;
   status: boolean;
 };

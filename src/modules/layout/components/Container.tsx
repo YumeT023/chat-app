@@ -29,7 +29,7 @@ export const MainPanelContainer = ({children, title, className = ""}: MainPanelC
             <FaHashtag /> <span>{title}</span>
           </div>
         </div>
-        <div className="h-full overflow-y-auto" style={{maxHeight: maxH}}>
+        <div className="h-full overflow-y-auto bg-dark-100" style={{maxHeight: maxH}}>
           {children}
         </div>
       </div>
