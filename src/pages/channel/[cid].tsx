@@ -7,11 +7,9 @@ export const ChannelPage = ({
   channelId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <Authenticated>
-      <MainLayout title="" sidePanel={<SidePanel />}>
-        <ChannelMessage />
-      </MainLayout>
-    </Authenticated>
+    <MainLayout title="" sidePanel={<SidePanel />}>
+      <ChannelMessage />
+    </MainLayout>
   );
 };
 

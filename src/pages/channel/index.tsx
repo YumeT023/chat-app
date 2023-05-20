@@ -4,11 +4,9 @@ import {Authenticated} from "@/src/modules/auth/utils/Authenticated";
 
 const MainChannelPage = () => {
   return (
-    <Authenticated>
-      <MainLayout sidePanel={<SidePanel />} title="Channel">
-        <WhatIsChannel />
-      </MainLayout>
-    </Authenticated>
+    <MainLayout sidePanel={<SidePanel />} title="Channel">
+      <WhatIsChannel />
+    </MainLayout>
   );
 };
 

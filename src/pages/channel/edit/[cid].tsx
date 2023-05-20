@@ -21,12 +21,10 @@ const EditChannelPage = ({id}: InferGetServerSidePropsType<typeof getServerSideP
   }, []);
 
   return (
-    <Authenticated>
-      <MainLayout title="Edit channel" sidePanel={<SidePanel />}>
-        {state && <EditChannel toEdit={state} />}
-        <FullPageLoading isActive={isLoading} />
-      </MainLayout>
-    </Authenticated>
+    <MainLayout title="Edit channel" sidePanel={<SidePanel />}>
+      {state && <EditChannel toEdit={state} />}
+      <FullPageLoading isActive={isLoading} />
+    </MainLayout>
   );
 };
 
