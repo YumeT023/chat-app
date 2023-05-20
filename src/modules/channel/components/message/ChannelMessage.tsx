@@ -1,4 +1,4 @@
-import {UserMessage} from "@/src/modules/channel";
+import {MessageInput, UserMessage} from "@/src/modules/channel";
 
 export type ChannelMessage = () => {};
 
@@ -63,8 +63,8 @@ export const ChannelMessage = () => {
         <UserMessage content={mockContent} />
       </div>
 
-      <div className="h-48 bg-primary-200">
-        
+      <div className="h-52 p-2">
+        <MessageInput />
       </div>
     </div>
   );
