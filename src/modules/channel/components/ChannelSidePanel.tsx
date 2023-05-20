@@ -32,7 +32,7 @@ export const ChannelSidePanel = () => {
         </Link>
       </div>
 
-      <div className="mt-4 flex flex-col">
+      <div className="mt-4 flex max-h-[32rem] flex-col overflow-y-auto">
         {channels.channels.map((channel) => (
           <Link
             key={channel.id}
