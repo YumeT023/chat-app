@@ -4,10 +4,10 @@ import {Channel, ChannelList, CreateChannel} from "@/src/modules/channel/types";
 import {addAuth, reshapeData} from "@/src/lib/api/utils";
 import {Api} from "@/src/types/utility";
 
-export const createChannel = async (toCreate: CreateChannel) => {
+export const createChannel = async (token: string, toCreate: CreateChannel) => {
   try {
     return await axios
-      .post<Api<Channel, "channel">>("/channel", toCreate)
+      .post<Api<Channel, "channel">>("/channel", toCreate, addAuth(token))
       .then((res) => reshapeData(res.data, "channel"));
   } catch (err: unknown) {
     throw formatError(err);
