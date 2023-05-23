@@ -4,6 +4,10 @@ export type WithLoading<T> = T & {
   isLoading: boolean;
 };
 
-export type WithStatus<T> = {
+export type Api<T, key extends string> = {
   status: boolean;
-} & T;
+} & {
+  [P in key]: T;
+};
+
+export type Select<T, K extends keyof T> = T[K];

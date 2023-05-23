@@ -1,18 +1,13 @@
 import {User} from "@/src/modules/user/types";
+import {Api} from "@/src/types/utility";
 
-export type LoggedUser = {
-  user: User & {
+export type AuthenticatedUser = Api<
+  User & {
     token: string;
-  };
-  status: boolean;
-};
+  },
+  "user"
+>;
 
-export type Payload = {
-  email: string;
-  password: string;
-};
+export type Payload = Pick<User, "email" | "password">;
 
-export type CreatePayload = Payload & {
-  name: string;
-  bio: string;
-};
+export type CreatePayload = Payload & Pick<User, "name" | "bio">;

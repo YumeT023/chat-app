@@ -1,24 +1,21 @@
-export type CreateChannel = {
+export type Channel = {
   name: string;
   type: string;
+  id: number;
+  updatedAt: Date;
+  createdAt: Date;
+  owner: {
+    id: number;
+    name: string;
+    email: string;
+  };
+};
+
+export type CreateChannel = Pick<Channel, "name" | "type"> & {
   members: [];
 };
 
-export type Channel = {
-  channel: Omit<CreateChannel, "members"> & {
-    id: number;
-    updatedAt: Date;
-    createdAt: Date;
-    owner: {
-      id: number;
-      name: string;
-      email: string;
-    };
-  };
-  status: boolean;
-};
-
 export type ChannelList = {
-  channels: Array<Channel["channel"]>;
+  channels: Channel[];
   status: boolean;
 };

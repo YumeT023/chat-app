@@ -34,7 +34,7 @@ export const CreateChannel = () => {
   const onSubmit = async ({members, ...channel}: any) => {
     const serialized = {...channel, members: members.map(Number)};
     const created = await create(serialized);
-    push(`/channel/${created.channel.id}`);
+    push(`/channel/${created.id}`);
   };
 
   return (
