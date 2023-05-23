@@ -11,22 +11,23 @@ export type AuthenticatedProps = PropsWithChildren<{
 }>;
 
 export const Authenticated = ({children, fallback = "/login"}: AuthenticatedProps) => {
-  const logged = auth((state) => state.loggedUser);
-  const {push} = useRouter();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const doCheckAuthentication = async () => {
-      logged ? setLoading(false) : await push(fallback);
-    };
-
-    doCheckAuthentication();
-  }, [push, logged, fallback]);
+  // const logged = auth((state) => state.loggedUser);
+  // const {push} = useRouter();
+  // const [loading, setLoading] = useState(true);
+  //
+  // useEffect(() => {
+  //   const doCheckAuthentication = async () => {
+  //     logged ? setLoading(false) : await push(fallback);
+  //   };
+  //
+  //   doCheckAuthentication();
+  // }, [push, logged, fallback]);
 
   return (
     <>
-      <FullPageLoading isActive={loading} />
-      {!loading && children}
+      {/*<FullPageLoading isActive={loading} />*/}
+      {/*{!loading && children}*/}
+      {children}
     </>
   );
 };

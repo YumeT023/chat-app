@@ -9,9 +9,14 @@ export enum UserStatus {
 export type User = {
   id: number;
   email: string;
+  password: string;
   name: string;
   googleId: Nullable<string>;
   status: UserStatus;
   bio?: string;
   image?: string;
+};
+
+export type AuthenticatedUser = User & {
+  token: string;
 };

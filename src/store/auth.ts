@@ -1,51 +1,40 @@
 import {create} from "zustand";
-import {createJSONStorage, persist} from "zustand/middleware";
-import {Nullable, WithLoading} from "@/src/types/utility";
-import {CreatePayload, LoggedUser, Payload} from "@/src/modules/auth/types";
-import {AUTH_TOKEN_KEY} from "@/src/modules/auth/constants";
+import {destroyCookie, setCookie} from "nookies";
+import {WithLoading} from "@/src/types/utility";
+import {CreatePayload, Payload} from "@/src/modules/auth/types";
 import {createUser, loginUser} from "@/src/lib/api";
 
-type State = WithLoading<{
-  loggedUser: Nullable<LoggedUser>;
-}>;
+type State = WithLoading<{}>;
 type Actions = {
   createUser: (user: CreatePayload) => Promise<void>;
   loginUser: (credentials: Payload) => Promise<void>;
   logoutUser: () => void;
 };
 
-export const auth = create<State & Actions>()(
-  persist(
-    (set) => ({
-      isLoading: false,
-      loggedUser: null,
-      loginUser: async (credentials) => {
-        set({loggedUser: null, isLoading: true});
-        try {
-          const user = await loginUser(credentials);
-          set({loggedUser: user?.data, isLoading: false});
-        } catch (e) {
-          set({isLoading: false});
-          throw e;
-        }
-      },
-      logoutUser: () => {
-        set({loggedUser: null});
-      },
-      createUser: async (user) => {
-        set({loggedUser: null, isLoading: true});
-        try {
-          const created = await createUser(user);
-          set({loggedUser: created?.data, isLoading: false});
-        } catch (e) {
-          set({isLoading: false});
-        }
-      },
-    }),
-    {
-      name: AUTH_TOKEN_KEY,
-      storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({loggedUser: state.loggedUser}),
+export const auth = create<State & Actions>()((set) => ({
+  isLoading: false,
+  loginUser: async (credentials) => {
+    set({isLoading: true});
+    try {
+      const user = await loginUser(credentials);
+      setCookie(null, "user", JSON.stringify(user));
+      set({isLoading: false});
+    } catch (e) {
+      set({isLoading: false});
+      throw e;
     }
-  )
-);
+  },
+  logoutUser: () => {
+    destroyCookie(null, "user");
+  },
+  createUser: async (user) => {
+    set({isLoading: true});
+    try {
+      const created = await createUser(user);
+      setCookie(null, "user", JSON.stringify(created));
+      set({isLoading: false});
+    } catch (e) {
+      set({isLoading: false});
+    }
+  },
+}));
