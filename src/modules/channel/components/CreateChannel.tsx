@@ -1,19 +1,41 @@
+import useSWRMutation from "swr/mutation";
+import useSWR, {Key} from "swr";
 import {Checkbox, FormWrapper, InputField, Radio} from "@/src/ui/form";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {createSchemas} from "@/src/modules/channel/utils/schemas";
 import {Button} from "@/src/ui/button";
-import {channel, user} from "@/src/store";
 import {useRouter} from "next/navigation";
 import {FullPageLoading} from "@/src/ui/loading";
-import {useEffect} from "react";
+import {createChannel, getUsers} from "@/src/lib/api";
+import {AuthenticatedUser, User} from "@/src/modules/user/types";
+import {Channel, CreateChannel as CreateChannelType} from "@/src/modules/channel/types";
 
-export const CreateChannel = () => {
-  const isLoading = channel((state) => state.isLoading);
-  const create = channel((state) => state.create);
-  const users = user((state) => state.users);
-  const getUsers = user((state) => state.getAll);
+export type CreateChannelProps = {
+  user: AuthenticatedUser;
+};
+
+const createChannelMutation = <T = Key,>(token: string) => {
+  return async (key: T, {arg}: {arg: CreateChannelType}) =>
+    (await createChannel(token, arg)) as Channel;
+};
+
+export const CreateChannel = ({user}: CreateChannelProps) => {
   const {push} = useRouter();
+  const {
+    isLoading,
+    data: users = [],
+    error: fetchUserError,
+  } = useSWR("/users", () => getUsers(user.token));
+  const {
+    error: createChannelError,
+    trigger,
+    isMutating,
+  } = useSWRMutation<Channel, CreateChannelType, any>(
+    `/channel`,
+    createChannelMutation(user.token)
+  );
+
   const {
     register,
     handleSubmit,
@@ -27,19 +49,18 @@ export const CreateChannel = () => {
     resolver: yupResolver(createSchemas),
   });
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-
   const onSubmit = async ({members, ...channel}: any) => {
     const serialized = {...channel, members: members.map(Number)};
-    const created = await create(serialized);
-    push(`/channel/${created.id}`);
+
+    const created = await trigger(serialized);
+    if (created) {
+      push(`/channel/${created.id}`);
+    }
   };
 
   return (
-    <form className="flex h-full flex-col gap-6 px-3 py-5" onSubmit={handleSubmit(onSubmit)}>
-      <FullPageLoading isActive={isLoading} />
+    <form className="flex h-full flex-col gap-6 px-5 pt-5" onSubmit={handleSubmit(onSubmit)}>
+      <FullPageLoading isActive={isLoading || isMutating} />
 
       <InputField
         explicitName
@@ -59,7 +80,7 @@ export const CreateChannel = () => {
       </FormWrapper>
 
       <FormWrapper name="members" labelCls="text-primary-200">
-        {users.map(({id, name}) => (
+        {((users as User[]) || []).map(({id, name}) => (
           <Checkbox
             key={id}
             label={name}
@@ -70,9 +91,11 @@ export const CreateChannel = () => {
         ))}
       </FormWrapper>
 
-      <Button className="w-fit" loading={isLoading}>
+      <Button className="mb-5 w-fit" loading={isLoading}>
         Create
       </Button>
+
+      <div className="pb-2"></div>
     </form>
   );
 };
