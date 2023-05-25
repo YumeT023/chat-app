@@ -16,7 +16,7 @@ export const ChannelPage = ({channel}: {channel: Channel}) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return withAuth(context, async (user) => {
     const cid = context.query?.cid as string;
-    const channel = (await getChannelById(user.token, Number(cid))) as Channel;
+    const channel = await getChannelById(user.token, Number(cid));
 
     return {
       props: {

@@ -1,34 +1,34 @@
 import {globalAxios as axios} from "@/src/conf/axios";
 import {formatError} from "@/src/modules/errors/utils";
 import {Channel, ChannelList, CreateChannel} from "@/src/modules/channel/types";
-import {addAuth, reshapeData} from "@/src/lib/api/utils";
+import {addAuth} from "@/src/lib/api/utils";
 import {Api} from "@/src/types/utility";
 
-export const createChannel = async (token: string, toCreate: CreateChannel) => {
+export const createChannel = async (token: string, toCreate: CreateChannel): Promise<Channel> => {
   try {
     return await axios
       .post<Api<Channel, "channel">>("/channel", toCreate, addAuth(token))
-      .then((res) => reshapeData(res.data, "channel"));
+      .then(({data}) => data.channel);
   } catch (err: unknown) {
     throw formatError(err);
   }
 };
 
-export const getChannelById = async (token: string, id: number) => {
+export const getChannelById = async (token: string, id: number): Promise<Channel> => {
   try {
     return await axios
       .get<Api<Channel, "channel">>(`/channel/${id}`, addAuth(token))
-      .then((res) => reshapeData(res.data, "channel"));
+      .then(({data}) => data.channel);
   } catch (err: unknown) {
     throw formatError(err);
   }
 };
 
-export const getChannels = async (token: string) => {
+export const getChannels = async (token: string): Promise<ChannelList> => {
   try {
     return await axios
       .get<Api<ChannelList, "channels">>(`/channels`, addAuth(token))
-      .then((res) => reshapeData(res.data, "channels"));
+      .then(({data}) => data.channels);
   } catch (err: unknown) {
     throw formatError(err);
   }
