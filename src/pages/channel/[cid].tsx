@@ -1,11 +1,10 @@
-import {GetServerSideProps} from "next";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {MainLayout, SidePanel} from "@/src/modules/layout";
 import {ChannelMessage} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
 import {getChannelById} from "@/src/lib/api";
-import {Channel} from "@/src/modules/channel/types";
 
-export const ChannelPage = ({channel}: {channel: Channel}) => {
+export const ChannelPage = ({channel}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <MainLayout title={channel.name} sidePanel={<SidePanel />}>
       <ChannelMessage />
