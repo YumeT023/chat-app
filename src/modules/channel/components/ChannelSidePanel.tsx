@@ -21,6 +21,14 @@ export const ChannelSidePanel = ({channels}: ChannelSidePanelProps) => {
 
       <div className="mt-4 flex flex-col">
         <Link
+          href="/profile"
+          className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
+        >
+          <MdPerson className="h-6 w-6" />
+          <div>Profile</div>
+        </Link>
+
+        <Link
           href="/channel"
           className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
         >
@@ -28,7 +36,7 @@ export const ChannelSidePanel = ({channels}: ChannelSidePanelProps) => {
           <div>Channel</div>
         </Link>
 
-        <div className="flex max-h-[32rem] flex-col overflow-y-auto">
+        <div className="flex max-h-[29.5rem] flex-col overflow-y-auto">
           {channels.map((channel) => (
             <Link
               key={channel.id}
@@ -40,14 +48,6 @@ export const ChannelSidePanel = ({channels}: ChannelSidePanelProps) => {
             </Link>
           ))}
         </div>
-
-        <Link
-          href="/profile"
-          className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
-        >
-          <MdPerson className="h-6 w-6" />
-          <div>Profile</div>
-        </Link>
       </div>
     </SidebarPanelContainer>
   );

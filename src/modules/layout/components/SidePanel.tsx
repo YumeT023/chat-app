@@ -16,19 +16,19 @@ export const SidePanel = () => {
 
       <div className="mt-4 flex flex-col">
         <Link
-          href="/channel"
-          className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
-        >
-          <VscRepoPull className="h-6 w-6" />
-          <div>Channel</div>
-        </Link>
-
-        <Link
           href="/profile"
           className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
         >
           <MdPerson className="h-6 w-6" />
           <div>Profile</div>
+        </Link>
+
+        <Link
+          href="/channel"
+          className="mb-1 flex w-full items-center gap-3 border-b border-b-dark-300 px-2 py-2 text-primary-200 text-opacity-90 hover:text-opacity-100"
+        >
+          <VscRepoPull className="h-6 w-6" />
+          <div>Channel</div>
         </Link>
       </div>
     </SidebarPanelContainer>

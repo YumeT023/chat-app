@@ -1,44 +1,28 @@
-import {useEffect, useState} from "react";
 import {MainLayout, SidePanel} from "@/src/modules/layout";
-import {channel} from "@/src/store";
-import {Channel} from "@/src/modules/channel/types";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {FullPageLoading} from "@/src/ui/loading";
 import {EditChannel} from "@/src/modules/channel";
-import {Authenticated} from "@/src/modules/auth/utils/Authenticated";
+import {withAuth} from "@/src/lib/utils";
+import {getChannelById} from "@/src/lib/api";
 
-const EditChannelPage = ({id}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const [state, setState] = useState<Channel["channel"] | null>(null);
-  const getChannelById = channel((x) => x.getById);
-  const isLoading = channel((x) => x.isLoading);
-
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await getChannelById(id);
-      setState(res.channel);
-    };
-    fetch();
-  }, []);
-
+const EditChannelPage = ({channel}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <MainLayout title="Edit channel" sidePanel={<SidePanel />}>
-      {state && <EditChannel toEdit={state} />}
-      <FullPageLoading isActive={isLoading} />
+      <EditChannel toEdit={channel} />
     </MainLayout>
   );
 };
 
-// TODO: serve complete data through SSR
-// use cookies for storing auth in client as well as server
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // params cannot be undefined because we have /[cid] path
-  const {cid} = context.query!;
+  return withAuth(context, async (user) => {
+    const cid = context.query?.cid as string;
+    const channel = await getChannelById(user.token, Number(cid));
 
-  return {
-    props: {
-      id: cid,
-    },
-  };
+    return {
+      props: {
+        channel,
+      },
+    };
+  });
 };
 
 export default EditChannelPage;
