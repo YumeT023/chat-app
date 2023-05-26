@@ -1,12 +1,15 @@
 import {MainLayout, SidePanel} from "@/src/modules/layout";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {EditChannel} from "@/src/modules/channel";
+import {ChannelSidePanel, EditChannel} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
 import {getChannelById} from "@/src/lib/api";
 
-const EditChannelPage = ({channel}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const EditChannelPage = ({
+  channel,
+  user,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <MainLayout title="Edit channel" sidePanel={<SidePanel />}>
+    <MainLayout title="Edit channel" sidePanel={<ChannelSidePanel user={user} />}>
       <EditChannel toEdit={channel} />
     </MainLayout>
   );
@@ -19,6 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
+        user,
         channel,
       },
     };

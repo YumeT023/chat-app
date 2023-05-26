@@ -1,6 +1,6 @@
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {MainLayout, SidePanel} from "@/src/modules/layout";
-import {ChannelMessage} from "@/src/modules/channel";
+import {MainLayout} from "@/src/modules/layout";
+import {ChannelMessage, ChannelSidePanel} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
 import {getChannelById, getMessagesByChannel} from "@/src/lib/api";
 import {FaEdit} from "react-icons/fa";
@@ -21,7 +21,7 @@ export const ChannelPage = ({
   );
 
   return (
-    <MainLayout title={Title} sidePanel={<SidePanel />}>
+    <MainLayout title={Title} sidePanel={<ChannelSidePanel user={user} />}>
       <ChannelMessage messages={messages} user={user} />
     </MainLayout>
   );

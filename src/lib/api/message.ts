@@ -1,4 +1,4 @@
-import {Message} from "@/src/modules/channel/types";
+import {Message} from "@/src/modules/message/types";
 import {globalAxios as axios} from "@/src/conf/axios";
 import {Api} from "@/src/types/utility";
 import {addAuth} from "@/src/lib/api/utils";

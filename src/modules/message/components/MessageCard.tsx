@@ -1,7 +1,7 @@
-import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {Avatar} from "@/src/ui/avatar";
 import {AuthenticatedUser} from "@/src/modules/user/types";
-import {Message} from "@/src/modules/channel/types";
+import {Message} from "@/src/modules/message/types";
+import doge from "@/src/assets/img/doge-meme-icon.jpg";
 
 export type UserMessageProps = {
   message: Message;

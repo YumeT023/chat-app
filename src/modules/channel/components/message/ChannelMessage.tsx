@@ -1,5 +1,5 @@
-import {MessageCard, MessageInput} from "@/src/modules/channel";
-import {Message} from "@/src/modules/channel/types";
+import {MessageCard, MessageInput} from "@/src/modules/message";
+import {Message} from "@/src/modules/message/types";
 import {AuthenticatedUser} from "@/src/modules/user/types";
 
 export type ChannelMessageProps = {

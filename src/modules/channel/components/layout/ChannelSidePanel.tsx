@@ -6,14 +6,21 @@ import {VscRepoPull} from "react-icons/vsc";
 import {FiHash} from "react-icons/fi";
 import {MdPerson} from "react-icons/md";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
+import {AuthenticatedUser} from "@/src/modules/user/types";
+import useSWR from "swr";
+import {getChannels} from "@/src/lib/api";
+import {FullPageLoading} from "@/src/ui/loading";
 
 export type ChannelSidePanelProps = {
-  channels: Channel[];
+  user: AuthenticatedUser;
 };
 
-export const ChannelSidePanel = ({channels}: ChannelSidePanelProps) => {
+export const ChannelSidePanel = ({user}: ChannelSidePanelProps) => {
+  const {isLoading, data = []} = useSWR("/channels", () => getChannels(user.token));
+
   return (
     <SidebarPanelContainer className="bg-dark-100">
+      <FullPageLoading isActive={isLoading} />
       <div className="ml-1.5 flex h-14 items-center border-y border-y-dark-300">
         <Avatar src={doge} className="mr-2 mt-0 h-9 w-9" />
         <span className="text-xl font-semibold text-white">Sleek</span>
@@ -37,7 +44,7 @@ export const ChannelSidePanel = ({channels}: ChannelSidePanelProps) => {
         </Link>
 
         <div className="flex max-h-[29.5rem] flex-col overflow-y-auto">
-          {channels.map((channel) => (
+          {data.map((channel) => (
             <Link
               key={channel.id}
               href={`/channel/${channel.id}`}
