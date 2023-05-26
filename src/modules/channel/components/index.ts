@@ -1,5 +1,4 @@
 export * from "./WhatIsChannel";
-export * from "./CreateChannel";
-export * from "./EditChannel";
+export * from "./form";
 export * from "./message";
-export * from "./ChannelSidePanel";
+export * from "./layout";
