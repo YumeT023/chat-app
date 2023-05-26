@@ -1,69 +1,22 @@
-import {MessageInput, UserMessage} from "@/src/modules/channel";
+import {MessageInput, MessageCard} from "@/src/modules/channel";
+import {Message} from "@/src/modules/channel/types";
+import {AuthenticatedUser} from "@/src/modules/user/types";
 
-export type ChannelMessage = () => {};
+export type ChannelMessageProps = {
+  user: AuthenticatedUser;
+  messages: Message[];
+};
 
-const mockContent = `
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-Hello world from here lorem2
-`;
-
-export const ChannelMessage = () => {
+export const ChannelMessage = ({messages, user}: ChannelMessageProps) => {
   return (
-    <div className="flex h-full flex-col bg-dark-100">
-      <div className="overflow-y-auto px-3">
-        <UserMessage content={mockContent} />
+    <div className="h-full bg-dark-100">
+      <div className="h-3/4 overflow-y-auto px-3">
+        {messages.map((message) => (
+          <MessageCard key={message.id} message={message} self={user} />
+        ))}
       </div>
 
-      <div className="h-52 p-2">
+      <div className="h-1/4 p-2">
         <MessageInput />
       </div>
     </div>

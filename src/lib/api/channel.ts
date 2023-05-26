@@ -1,6 +1,6 @@
 import {globalAxios as axios} from "@/src/conf/axios";
 import {formatError} from "@/src/modules/errors/utils";
-import {Channel, ChannelList, CreateChannel} from "@/src/modules/channel/types";
+import {Channel, CreateChannel} from "@/src/modules/channel/types";
 import {addAuth} from "@/src/lib/api/utils";
 import {Api} from "@/src/types/utility";
 
@@ -24,10 +24,10 @@ export const getChannelById = async (token: string, id: number): Promise<Channel
   }
 };
 
-export const getChannels = async (token: string): Promise<ChannelList> => {
+export const getChannels = async (token: string): Promise<Channel[]> => {
   try {
     return await axios
-      .get<Api<ChannelList, "channels">>(`/channels`, addAuth(token))
+      .get<Api<Channel[], "channels">>(`/channels`, addAuth(token))
       .then(({data}) => data.channels);
   } catch (err: unknown) {
     throw formatError(err);
