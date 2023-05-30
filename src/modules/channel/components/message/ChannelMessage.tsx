@@ -9,8 +9,8 @@ export type ChannelMessageProps = {
 
 export const ChannelMessage = ({messages, user}: ChannelMessageProps) => {
   return (
-    <div className="h-full bg-dark-100">
-      <div className="h-3/4 overflow-y-auto px-3">
+    <div className="h-full bg-dark-250">
+      <div className="h-3/4 overflow-y-auto py-1">
         {messages.length ? (
           messages.map((message) => <MessageCard key={message.id} message={message} self={user} />)
         ) : (
