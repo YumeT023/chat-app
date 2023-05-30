@@ -1,4 +1,4 @@
-import {MainLayout, SidePanel} from "@/src/modules/layout";
+import {MainLayout} from "@/src/modules/layout";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {ChannelSidePanel, EditChannel} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
