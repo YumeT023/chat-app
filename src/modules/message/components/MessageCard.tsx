@@ -14,12 +14,13 @@ export const MessageCard = ({message}: UserMessageProps) => {
   const grid = {
     display: "grid",
     gridTemplateColumns: "3rem auto",
+    gap: 5
   };
 
   return (
     <div className="mb-1 flex px-3 py-0.5 hover:bg-dark-300 hover:bg-opacity-80">
       <div className="px-1 md:w-1/2" style={grid}>
-        <Avatar src={sender.image || doge} className="h-10 w-10 self-center" variant="rounded" />
+        <Avatar src={sender.image || doge} className="h-w-auto w-auto mt-2" variant="rounded" />
         <div className="flex flex-col gap-1 text-primary-200">
           <div className="flex items-center gap-2">
             <div className="text-lg font-bold capitalize">{sender.name}</div>
