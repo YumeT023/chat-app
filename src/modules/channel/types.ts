@@ -14,8 +14,3 @@ export type Channel = {
 export type CreateChannel = Pick<Channel, "name" | "type"> & {
   members: [];
 };
-
-export type ChannelList = {
-  channels: Channel[];
-  status: boolean;
-};

@@ -4,7 +4,7 @@ import {Header, MainPanelContainer, SidebarPanelContainer} from "@/src/modules/l
 export type MainGridProps = PropsWithChildren<{
   sidePanel?: ReactNode;
   rootClass?: string;
-  title?: string;
+  title?: string | ReactNode;
 }>;
 
 export const MainLayout = ({

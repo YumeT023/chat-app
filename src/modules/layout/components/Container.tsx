@@ -1,11 +1,11 @@
-import {PropsWithChildren} from "react";
+import {PropsWithChildren, ReactNode} from "react";
 import {FaHashtag} from "react-icons/fa";
 
 export type ContainerProps = PropsWithChildren<{
   className?: string;
 }>;
 export type MainPanelContainerProps = ContainerProps & {
-  title: string;
+  title: string | ReactNode;
 };
 
 export const MainContainer = ({children, className}: ContainerProps) => {
