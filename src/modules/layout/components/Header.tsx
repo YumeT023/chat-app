@@ -1,11 +1,11 @@
 import Link from "next/link";
 import {Avatar} from "@/src/ui/avatar";
-import {auth} from "@/src/store";
 import {InputField} from "@/src/ui/form";
+import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
 
 export const Header = () => {
-  const logged = auth((state) => state.loggedUser);
+  const logged = getUserSession();
 
   return (
     <div className="fixed left-0 top-0 flex h-12 w-full items-center justify-between gap-10 bg-dark-100 px-3">
@@ -18,9 +18,9 @@ export const Header = () => {
         root="w-3/4"
       />
 
-      <Link href="/profile" title={logged?.user.name || "dummy"}>
+      <Link href="/profile" title={logged?.name || "dummy"}>
         <Avatar
-          src={logged?.user.image || doge}
+          src={logged?.image || doge}
           className="h-8 w-8 rounded-full hover:ring-2 hover:ring-accent-300"
         />
       </Link>
