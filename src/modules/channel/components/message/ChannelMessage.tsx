@@ -8,6 +8,10 @@ export type ChannelMessageProps = {
 };
 
 export const ChannelMessage = ({messages, user}: ChannelMessageProps) => {
+  const handleSendMessage = (message: string) => {
+    console.log("onSend(", message, ")");
+  };
+
   return (
     <div className="h-full bg-dark-250">
       <div className="h-3/4 overflow-y-auto py-1">
@@ -21,7 +25,7 @@ export const ChannelMessage = ({messages, user}: ChannelMessageProps) => {
       </div>
 
       <div className="h-1/4 p-2">
-        <MessageInput />
+        <MessageInput onSend={handleSendMessage} />
       </div>
     </div>
   );
