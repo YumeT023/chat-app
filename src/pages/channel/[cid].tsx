@@ -6,14 +6,23 @@ import {getChannelById, getMessagesByChannel} from "@/src/lib/api";
 import {FaEdit} from "react-icons/fa";
 import Link from "next/link";
 import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
+import {useEffect} from "react";
 
 export const ChannelPage = ({
   user,
   channel,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const {isLoading, data: messages = []} = useSWR("/channels/id/messages", () =>
-    getMessagesByChannel(user.token, channel.id)
-  );
+  const {
+    isMutating,
+    trigger,
+    data: messages = [],
+  } = useSWRMutation("/channels/id/messages", () => getMessagesByChannel(user.token, channel.id));
+
+  // TODO: refactor
+  useEffect(() => {
+    trigger();
+  }, [channel]);
 
   const Title = (
     <div className="flex gap-5">
@@ -26,7 +35,7 @@ export const ChannelPage = ({
 
   return (
     <MainLayout title={Title} sidePanel={<ChannelSidePanel user={user} />}>
-      {!isLoading && channel ? (
+      {!isMutating && channel ? (
         <ChannelMessage messages={messages} user={user} channel={channel} />
       ) : null}
     </MainLayout>

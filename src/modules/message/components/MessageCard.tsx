@@ -2,40 +2,42 @@ import {Avatar} from "@/src/ui/avatar";
 import {Message} from "@/src/modules/message/types";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {DateField} from "@/src/ui/typography";
+import {ComponentPropsWithRef, forwardRef} from "react";
 
 export type UserMessageProps = {
   message: Message;
-};
+} & ComponentPropsWithRef<"div">;
 
-export const MessageCard = ({message}: UserMessageProps) => {
-  const {content, sender} = message;
-  const grid = {
-    display: "grid",
-    gridTemplateColumns: "3rem auto",
-    gap: 5,
-  };
+export const MessageCard = forwardRef<HTMLDivElement, UserMessageProps>(
+  ({message, ...props}, ref) => {
+    const {content, sender} = message;
+    const grid = {
+      display: "grid",
+      gridTemplateColumns: "3rem auto",
+      gap: 5,
+    };
 
-  return (
-    <div className="mb-1 flex px-3 py-0.5 hover:bg-dark-300 hover:bg-opacity-80">
-      <div className="px-1 md:w-2/3" style={grid}>
-        <Avatar src={sender.image || doge} className="h-w-auto mt-2 w-auto" variant="rounded" />
-        <div className="flex flex-col gap-1 text-primary-200">
-          <div className="flex items-center gap-2">
-            <div className="text-lg font-bold capitalize">{sender.name}</div>
-            <DateField
-              value={new Date(message.createdAt)}
-              className="cursor-pointer text-sm font-light text-primary-200 text-opacity-70 hover:underline"
-            />
+    return (
+      <div
+        className="mb-1 flex px-3 py-0.5 hover:bg-dark-300 hover:bg-opacity-80"
+        ref={ref}
+        {...props}
+      >
+        <div className="px-1 md:w-2/3" style={grid}>
+          <Avatar src={sender.image || doge} className="h-w-auto mt-2 w-auto" variant="rounded" />
+          <div className="flex flex-col gap-1 text-primary-200">
+            <div className="flex items-center gap-2">
+              <div className="text-lg font-bold capitalize">{sender.name}</div>
+              <DateField
+                value={new Date(message.createdAt)}
+                className="cursor-pointer text-sm font-light text-primary-200 text-opacity-70 hover:underline"
+              />
+            </div>
+
+            <div className="text-md w-full">{content}</div>
           </div>
-
-          <div className="text-md w-full">{content}</div>
         </div>
       </div>
-    </div>
-  );
-};
-
-// <div className="flex flex-row items-center gap-2 rounded-t-lg border-dark-300 bg-primary-100 px-2 py-2">
-//   <div className="text-sm font-semibold capitalize text-primary-200">{sender.name}</div>
-// </div>
-// <div className=" w-fit rounded-b-xl  p-3 py-3 text-gray-500">{content}</div>
+    );
+  }
+);
