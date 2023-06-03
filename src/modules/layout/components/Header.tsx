@@ -2,9 +2,9 @@ import Link from "next/link";
 import {Avatar} from "@/src/ui/avatar";
 import {InputField} from "@/src/ui/form";
 import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
-import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {auth} from "@/src/store";
 import {useRouter} from "next/navigation";
+import doge from "@/src/assets/img/doge-meme-icon.jpg";
 
 export const Header = () => {
   const router = useRouter();
@@ -13,7 +13,9 @@ export const Header = () => {
 
   const _logout = () => {
     logout();
-    router.push("/login");
+    if (!getUserSession()) {
+      router.push("/login");
+    }
   };
 
   return (
