@@ -1,23 +1,22 @@
+import {AuthenticatedUser, User} from "@/src/modules/user/types";
 import {MessageView} from "@/src/modules/message";
 import {Message} from "@/src/modules/message/types";
-import {AuthenticatedUser} from "@/src/modules/user/types";
-import {Channel} from "@/src/modules/channel/types";
-import {sendMessageToChannel} from "@/src/lib/api";
+import {sendMessageToRecipient} from "@/src/lib/api";
 import {Key} from "swr";
 import useSWRMutation from "swr/mutation";
 
-export type ChannelMessageProps = {
-  channel: Channel;
+export type MessageUserProps = {
   user: AuthenticatedUser;
+  recipient: User;
   messages: Message[];
 };
 
 const sendMessageMutation = <T = Key,>(token: string) => {
   return async (key: T, {arg}: {arg: any}) =>
-    (await sendMessageToChannel(token, arg.channelId, arg.content)) as Message;
+    (await sendMessageToRecipient(token, arg.recipientId, arg.content)) as Message;
 };
 
-export const ChannelMessage = ({messages, user, channel}: ChannelMessageProps) => {
+export const MessageUser = ({user, recipient, messages = []}: MessageUserProps) => {
   const {
     error: sendMessageError,
     trigger,
@@ -25,14 +24,17 @@ export const ChannelMessage = ({messages, user, channel}: ChannelMessageProps) =
   } = useSWRMutation(`/channel`, sendMessageMutation(user.token));
 
   const handleSendMessage = async (content: string) => {
-    await trigger({channelId: channel.id, content: content});
+    await trigger({
+      recipientId: recipient.id,
+      content,
+    });
   };
 
   return (
     <MessageView
-      messages={messages}
       onSendMessage={handleSendMessage}
-      fallbackText="No messages in this channel"
+      messages={messages}
+      fallbackText={`No messages with ${recipient.name}`}
     />
   );
 };

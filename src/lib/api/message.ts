@@ -31,6 +31,16 @@ const sendMessage = async (token: string, payload: MessagePayload): Promise<Mess
   }
 };
 
+export const getMessagesByUser = async (token: string, uid: number) => {
+  try {
+    return await axios
+      .get<Api<Message[], "messages">>(`/messages/${uid}`, addAuth(token))
+      .then(({data}) => data.messages);
+  } catch (err: unknown) {
+    throw formatError(err);
+  }
+};
+
 export const sendMessageToChannel = async (token: string, channelId: number, content: string) => {
   try {
     return await sendMessage(token, {
@@ -42,7 +52,11 @@ export const sendMessageToChannel = async (token: string, channelId: number, con
   }
 };
 
-export const sendMessageRecipient = async (token: string, recipientId: number, content: string) => {
+export const sendMessageToRecipient = async (
+  token: string,
+  recipientId: number,
+  content: string
+) => {
   try {
     return await sendMessage(token, {
       recipientId,

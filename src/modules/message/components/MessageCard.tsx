@@ -1,12 +1,10 @@
 import {Avatar} from "@/src/ui/avatar";
-import {AuthenticatedUser} from "@/src/modules/user/types";
 import {Message} from "@/src/modules/message/types";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {DateField} from "@/src/ui/typography";
 
 export type UserMessageProps = {
   message: Message;
-  self: AuthenticatedUser;
 };
 
 export const MessageCard = ({message}: UserMessageProps) => {

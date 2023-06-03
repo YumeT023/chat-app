@@ -36,7 +36,6 @@ export const MessageInput = ({onSend}: MessageInputProps) => {
     <form className="h-full w-full rounded-md" onSubmit={submit}>
       <div className="flex h-full w-full justify-evenly">
         <MultilineField
-          onSubmit={() => alert("submit")}
           ref={messageRef}
           name="message"
           root="h-full multiline md:w-[90%] w-[95%]"
