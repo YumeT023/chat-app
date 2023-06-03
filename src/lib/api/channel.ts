@@ -3,12 +3,35 @@ import {formatError} from "@/src/modules/errors/utils";
 import {Channel, CreateChannel} from "@/src/modules/channel/types";
 import {addAuth} from "@/src/lib/api/utils";
 import {Api} from "@/src/types/utility";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {createSchemas} from "@/src/modules/channel/utils/schemas";
 
 export const createChannel = async (token: string, toCreate: CreateChannel): Promise<Channel> => {
   try {
     return await axios
       .post<Api<Channel, "channel">>("/channel", toCreate, addAuth(token))
       .then(({data}) => data.channel);
+  } catch (err: unknown) {
+    throw formatError(err);
+  }
+};
+
+export const addMembersToChannel = async (
+  token: string,
+  channelId: number,
+  members: number[]
+): Promise<Channel> => {
+  try {
+    return await axios
+      .post<any>(
+        `/channels/${channelId}/members`,
+        {
+          members,
+        },
+        addAuth(token)
+      )
+      .then(({data}) => data);
   } catch (err: unknown) {
     throw formatError(err);
   }

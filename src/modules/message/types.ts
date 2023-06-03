@@ -8,5 +8,5 @@ export type Message = {
   updatedAt: Date;
   createdAt: Date;
   senderId: number;
-  sender: Pick<User, "id" | "name" | "email">;
+  sender: Pick<User, "id" | "name" | "email" | "image">;
 };

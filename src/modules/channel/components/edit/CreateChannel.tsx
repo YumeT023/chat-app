@@ -31,10 +31,7 @@ export const CreateChannel = ({user}: CreateChannelProps) => {
     error: createChannelError,
     trigger,
     isMutating,
-  } = useSWRMutation<Channel, CreateChannelType, any>(
-    `/channel`,
-    createChannelMutation(user.token)
-  );
+  } = useSWRMutation(`/channel`, createChannelMutation(user.token));
 
   const {
     register,

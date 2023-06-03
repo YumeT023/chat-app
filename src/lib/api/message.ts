@@ -16,3 +16,39 @@ export const getMessagesByChannel = async (
     throw formatError(err);
   }
 };
+
+type MessagePayload = {
+  content: string;
+} & Partial<Pick<Message, "channelId" | "recipientId">>;
+
+const sendMessage = async (token: string, payload: MessagePayload): Promise<Message> => {
+  try {
+    return await axios
+      .post<Api<Message, "message">>(`/message`, payload, addAuth(token))
+      .then(({data}) => data.message);
+  } catch (err: unknown) {
+    throw formatError(err);
+  }
+};
+
+export const sendMessageToChannel = async (token: string, channelId: number, content: string) => {
+  try {
+    return await sendMessage(token, {
+      channelId,
+      content,
+    });
+  } catch (err: unknown) {
+    throw formatError(err);
+  }
+};
+
+export const sendMessageRecipient = async (token: string, recipientId: number, content: string) => {
+  try {
+    return await sendMessage(token, {
+      recipientId,
+      content,
+    });
+  } catch (err: unknown) {
+    throw formatError(err);
+  }
+};

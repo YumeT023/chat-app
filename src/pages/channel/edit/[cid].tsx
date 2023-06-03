@@ -10,7 +10,7 @@ const EditChannelPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <MainLayout title="Edit channel" sidePanel={<ChannelSidePanel user={user} />}>
-      <EditChannel toEdit={channel} />
+      <EditChannel toEdit={channel} user={user} />
     </MainLayout>
   );
 };
