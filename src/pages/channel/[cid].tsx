@@ -4,30 +4,16 @@ import {ChannelMessage, ChannelSidePanel} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
 import {getChannelById, getMessagesByChannel} from "@/src/lib/api";
 import {FaEdit} from "react-icons/fa";
-import {useEffect} from "react";
 import Link from "next/link";
-import useSWRMutation from "swr/mutation";
+import useSWR from "swr";
 
 export const ChannelPage = ({
   user,
-  cid,
+  channel,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const {
-    isMutating: loadingChannel,
-    trigger: fetchChannel,
-    data: channel,
-  } = useSWRMutation("/channels/id", () => getChannelById(user.token, cid));
-  const {
-    isMutating: loadingMessages,
-    trigger: fetchMessages,
-    data: messages = [],
-  } = useSWRMutation("/channels/id/messages", () => getMessagesByChannel(user.token, cid));
-
-  useEffect(() => {
-    (async () => {
-      await Promise.all([fetchChannel(), fetchMessages()]);
-    })();
-  }, [cid, user]);
+  const {isLoading, data: messages = []} = useSWR("/channels/id/messages", () =>
+    getMessagesByChannel(user.token, channel.id)
+  );
 
   const Title = (
     <div className="flex gap-5">
@@ -40,7 +26,7 @@ export const ChannelPage = ({
 
   return (
     <MainLayout title={Title} sidePanel={<ChannelSidePanel user={user} />}>
-      {!loadingChannel && !loadingMessages && channel ? (
+      {!isLoading && channel ? (
         <ChannelMessage messages={messages} user={user} channel={channel} />
       ) : null}
     </MainLayout>
@@ -51,10 +37,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return withAuth(context, async (user) => {
     const cid = context.query?.cid as string;
 
+    const channel = await getChannelById(user.token, Number(cid));
+
     return {
       props: {
         user,
-        cid,
+        channel,
       },
     };
   });

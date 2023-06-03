@@ -6,9 +6,9 @@ import {loginSchema} from "@/src/modules/auth/utils/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {InputField} from "@/src/ui/form";
 import {auth} from "@/src/modules/auth";
+import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
 
 export const Login = () => {
-  const loggedUser = auth((state) => state.loggedUser);
   const login = auth((state) => state.loginUser);
   const isLoading = auth((state) => state.isLoading);
   const {push} = useRouter();
@@ -21,7 +21,7 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    loggedUser && push("/profile");
+    getUserSession() && push("/profile");
   }, []);
 
   const onSubmit = async (payload: any) => {

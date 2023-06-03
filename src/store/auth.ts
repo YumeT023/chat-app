@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {destroyCookie, setCookie} from "nookies";
+import nookies from "nookies";
 import {WithLoading} from "@/src/types/utility";
 import {CreatePayload, Payload} from "@/src/modules/auth/types";
 import {createUser, loginUser} from "@/src/lib/api";
@@ -17,7 +17,7 @@ export const auth = create<State & Actions>()((set) => ({
     set({isLoading: true});
     try {
       const user = await loginUser(credentials);
-      setCookie(null, "user", JSON.stringify(user));
+      nookies.set(null, "user", JSON.stringify(user));
       set({isLoading: false});
     } catch (e) {
       set({isLoading: false});
@@ -25,13 +25,13 @@ export const auth = create<State & Actions>()((set) => ({
     }
   },
   logoutUser: () => {
-    destroyCookie(null, "user");
+    nookies.destroy(null, "user");
   },
   createUser: async (user) => {
     set({isLoading: true});
     try {
       const created = await createUser(user);
-      setCookie(null, "user", JSON.stringify(created));
+      nookies.set(null, "user", JSON.stringify(created));
       set({isLoading: false});
     } catch (e) {
       set({isLoading: false});
