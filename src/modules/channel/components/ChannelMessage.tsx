@@ -5,7 +5,6 @@ import {Channel} from "@/src/modules/channel/types";
 import {sendMessageToChannel} from "@/src/lib/api";
 import {Key} from "swr";
 import useSWRMutation from "swr/mutation";
-import {useEffect} from "react";
 
 export type ChannelMessageProps = {
   channel: Channel;

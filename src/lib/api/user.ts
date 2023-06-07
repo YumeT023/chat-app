@@ -1,9 +1,9 @@
 import {CreatePayload, Payload} from "@/src/modules/auth/types";
 import {globalAxios as axios} from "@/src/conf/axios";
-import {formatError} from "@/src/modules/errors/utils";
+import {formatError} from "@/src/modules/errors";
 import {Api} from "@/src/types/utility";
 import {AuthenticatedUser, User} from "@/src/modules/user/types";
-import {addAuth, reshapeData} from "@/src/lib/api/utils";
+import {addAuth} from "@/src/lib/api/utils";
 
 export const loginUser = async ({email, password}: Payload) => {
   try {
@@ -39,7 +39,7 @@ export const getUsers = async (token: string) => {
   try {
     return await axios
       .get<Api<User[], "users">>("/users", addAuth(token))
-      .then((res) => reshapeData(res.data, "users"));
+      .then(({data}) => data.users);
   } catch (err) {
     throw formatError(err);
   }

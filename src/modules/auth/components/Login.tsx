@@ -2,7 +2,7 @@ import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginSchema} from "@/src/modules/auth/utils/schemas";
+import {loginSchema} from "@/src/modules/auth/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {InputField} from "@/src/ui/form";
 import {auth} from "@/src/modules/auth";

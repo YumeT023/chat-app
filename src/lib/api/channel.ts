@@ -1,11 +1,8 @@
 import {globalAxios as axios} from "@/src/conf/axios";
-import {formatError} from "@/src/modules/errors/utils";
+import {formatError} from "@/src/modules/errors";
 import {Channel, CreateChannel} from "@/src/modules/channel/types";
 import {addAuth} from "@/src/lib/api/utils";
 import {Api} from "@/src/types/utility";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {createSchemas} from "@/src/modules/channel/utils/schemas";
 
 export const createChannel = async (token: string, toCreate: CreateChannel): Promise<Channel> => {
   try {

@@ -3,7 +3,7 @@ import useSWR, {Key} from "swr";
 import {Checkbox, FormWrapper, InputField, Radio} from "@/src/ui/form";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {createSchemas} from "@/src/modules/channel/utils/schemas";
+import {createSchemas} from "@/src/modules/channel/schemas";
 import {Button} from "@/src/ui/button";
 import {useRouter} from "next/navigation";
 import {FullPageLoading} from "@/src/ui/loading";
