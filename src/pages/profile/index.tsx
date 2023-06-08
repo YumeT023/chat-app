@@ -11,7 +11,7 @@ type ViewProfilePageProps = {
 const ViewProfilePage = ({user}: ViewProfilePageProps) => {
   return (
     <MainLayout
-      sidePanel={<SidePanel />}
+      sidePanel={<SidePanel username={user.name} />}
       rootClass="flex items-center justify-center h-full"
       title={"Profile"}
     >
