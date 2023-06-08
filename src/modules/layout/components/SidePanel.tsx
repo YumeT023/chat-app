@@ -5,12 +5,13 @@ import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {SelectionBackdrop} from "@/src/ui/box";
 import {CollapsibleMenu} from "@/src/ui/menu";
 import {useRouter} from "next/router";
+import {memo} from "react";
 
 export type SidePanelProps = {
   username: string;
 };
 
-export const SidePanel = ({username}: SidePanelProps) => {
+const SidePanelComponent = ({username}: SidePanelProps) => {
   const {route} = useRouter();
 
   return (
@@ -47,3 +48,5 @@ export const SidePanel = ({username}: SidePanelProps) => {
     </SidebarPanelContainer>
   );
 };
+
+export const SidePanel = memo(SidePanelComponent);
