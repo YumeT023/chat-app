@@ -1,9 +1,8 @@
+import useSWR from "swr";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {withAuth} from "@/src/lib/utils";
 import {getMessagesByUser, getUserById} from "@/src/lib/api";
-import {MainLayout} from "@/src/modules/layout";
-import {ChannelSidePanel} from "@/src/modules/channel";
-import useSWR from "swr";
+import {MainLayout, SidePanel} from "@/src/modules/layout";
 import {MessageUser} from "@/src/modules/message";
 
 const MessageUserPage = ({
@@ -15,7 +14,7 @@ const MessageUserPage = ({
   );
 
   return (
-    <MainLayout title={recipient.name} sidePanel={<ChannelSidePanel user={user} />}>
+    <MainLayout title={recipient.name} sidePanel={<SidePanel user={user} />}>
       {!isLoading && recipient ? (
         <MessageUser messages={messages} user={user} recipient={recipient} />
       ) : null}

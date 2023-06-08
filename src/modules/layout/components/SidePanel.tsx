@@ -22,6 +22,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
   const {isLoading: loadingUsers, data: users = []} = useSWR("/users", () => getUsers(user.token));
 
   const atChannelRoute = useMemo(() => route.includes("/channel"), [route]);
+  const atMessageRoute = useMemo(() => route.includes("/message"), [route]);
 
   return (
     <SidebarPanelContainer className="bg-dark-100 text-gray-300 ">
@@ -54,6 +55,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
             label: "Direct Messages",
           }}
           loading={loadingUsers}
+          expandedByDefault={atMessageRoute}
         >
           {users.map((user) => (
             <Link href={`/message/${user.id}`} key={user.id}>
