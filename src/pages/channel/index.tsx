@@ -1,11 +1,11 @@
-import {MainLayout} from "@/src/modules/layout/components";
+import {MainLayout, SidePanel} from "@/src/modules/layout/components";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {withAuth} from "@/src/lib/utils";
-import {ChannelSidePanel, WhatIsChannel} from "@/src/modules/channel";
+import {WhatIsChannel} from "@/src/modules/channel";
 
 const MainChannelPage = ({user}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <MainLayout sidePanel={<ChannelSidePanel user={user} />} title="Channel">
+    <MainLayout sidePanel={<SidePanel user={user} />} title="Channel">
       <WhatIsChannel />
     </MainLayout>
   );
