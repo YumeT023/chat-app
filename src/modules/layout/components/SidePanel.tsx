@@ -5,10 +5,10 @@ import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {SelectionBackdrop} from "@/src/ui/box";
 import {CollapsibleMenu} from "@/src/ui/menu";
 import {useRouter} from "next/router";
-import {memo} from "react";
+import {memo, useMemo} from "react";
 import {AuthenticatedUser} from "@/src/modules/user/types";
 import useSWR from "swr";
-import {getChannels} from "@/src/lib/api";
+import {getChannels, getUsers} from "@/src/lib/api";
 
 export type SidePanelProps = {
   user: AuthenticatedUser;
@@ -19,6 +19,9 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
   const {isLoading: loadingChannel, data: channels = []} = useSWR("/channels", () =>
     getChannels(user.token)
   );
+  const {isLoading: loadingUsers, data: users = []} = useSWR("/users", () => getUsers(user.token));
+
+  const atChannelRoute = useMemo(() => route.includes("/channel"), [route]);
 
   return (
     <SidebarPanelContainer className="bg-dark-100 text-gray-300 ">
@@ -35,12 +38,14 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           }}
           loading={loadingChannel}
           className="mb-2"
-          expandedByDefault={route === "/channels"}
+          expandedByDefault={atChannelRoute}
         >
           {channels.map((channel) => (
-            <SelectionBackdrop className="w-full py-0.5 text-left" key={channel.id}>
-              <Link href={`/channel/${channel.id}`}>{channel.name}</Link>
-            </SelectionBackdrop>
+            <Link href={`/channel/${channel.id}`} key={channel.id}>
+              <SelectionBackdrop className="w-full py-0.5 text-left text-sm">
+                # {channel.name}
+              </SelectionBackdrop>
+            </Link>
           ))}
         </CollapsibleMenu>
 
@@ -48,10 +53,15 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           header={{
             label: "Direct Messages",
           }}
+          loading={loadingUsers}
         >
-          <SelectionBackdrop className="w-full py-0.5 text-left">
-            <Link href="/profile">Yume</Link>
-          </SelectionBackdrop>
+          {users.map((user) => (
+            <Link href={`/message/${user.id}`} key={user.id}>
+              <SelectionBackdrop className="w-full py-0.5 text-left text-sm">
+                {user.name}
+              </SelectionBackdrop>
+            </Link>
+          ))}
         </CollapsibleMenu>
       </div>
     </SidebarPanelContainer>
