@@ -15,7 +15,7 @@ export type SidePanelProps = {
 };
 
 const SidePanelComponent = ({user}: SidePanelProps) => {
-  const {route} = useRouter();
+  const {route, query} = useRouter();
   const {isLoading: loadingChannel, data: channels = []} = useSWR("/channels", () =>
     getChannels(user.token)
   );
@@ -41,13 +41,19 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           className="mb-2"
           expandedByDefault={atChannelRoute}
         >
-          {channels.map((channel) => (
-            <Link href={`/channel/${channel.id}`} key={channel.id}>
-              <SelectionBackdrop className="w-full py-0.5 text-left text-sm">
-                # {channel.name}
-              </SelectionBackdrop>
-            </Link>
-          ))}
+          {channels.map((channel) => {
+            const isSelected = atChannelRoute && (query.cid as string) === String(channel.id);
+            return (
+              <Link href={`/channel/${channel.id}`} key={channel.id}>
+                <SelectionBackdrop
+                  className={"w-full py-0.5 text-left text-sm "}
+                  selected={isSelected}
+                >
+                  # {channel.name}
+                </SelectionBackdrop>
+              </Link>
+            );
+          })}
         </CollapsibleMenu>
 
         <CollapsibleMenu
@@ -57,13 +63,19 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           loading={loadingUsers}
           expandedByDefault={atMessageRoute}
         >
-          {users.map((user) => (
-            <Link href={`/message/${user.id}`} key={user.id}>
-              <SelectionBackdrop className="w-full py-0.5 text-left text-sm">
-                {user.name}
-              </SelectionBackdrop>
-            </Link>
-          ))}
+          {users.map((user) => {
+            const isSelected = atMessageRoute && (query.uid as string) === String(user.id);
+            return (
+              <Link href={`/message/${user.id}`} key={user.id}>
+                <SelectionBackdrop
+                  className="w-full py-0.5 text-left text-sm"
+                  selected={isSelected}
+                >
+                  {user.name}
+                </SelectionBackdrop>
+              </Link>
+            );
+          })}
         </CollapsibleMenu>
       </div>
     </SidebarPanelContainer>
