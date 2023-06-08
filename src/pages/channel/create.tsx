@@ -10,7 +10,7 @@ type CreateChannelPageProps = {
 
 const CreateChannelPage = ({user}: CreateChannelPageProps) => {
   return (
-    <MainLayout title="Create a channel" sidePanel={<SidePanel />}>
+    <MainLayout title="Create a channel" sidePanel={<SidePanel user={user} />}>
       <CreateChannel user={user} />
     </MainLayout>
   );

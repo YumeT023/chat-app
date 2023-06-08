@@ -1,6 +1,6 @@
-import {MainLayout} from "@/src/modules/layout";
+import {MainLayout, SidePanel} from "@/src/modules/layout";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {ChannelSidePanel, EditChannel} from "@/src/modules/channel";
+import {EditChannel} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
 import {getChannelById} from "@/src/lib/api";
 
@@ -9,7 +9,7 @@ const EditChannelPage = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <MainLayout title="Edit channel" sidePanel={<ChannelSidePanel user={user} />}>
+    <MainLayout title="Edit channel" sidePanel={<SidePanel user={user} />}>
       <EditChannel toEdit={channel} user={user} />
     </MainLayout>
   );

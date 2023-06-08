@@ -1,13 +1,12 @@
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {MainLayout} from "@/src/modules/layout";
-import {ChannelMessage, ChannelSidePanel} from "@/src/modules/channel";
+import {MainLayout, SidePanel} from "@/src/modules/layout";
+import {ChannelMessage} from "@/src/modules/channel";
 import {withAuth} from "@/src/lib/utils";
 import {getChannelById, getMessagesByChannel} from "@/src/lib/api";
 import {FaEdit} from "react-icons/fa";
 import Link from "next/link";
-import useSWR from "swr";
-import useSWRMutation from "swr/mutation";
 import {useEffect} from "react";
+import useSWRMutation from "swr/mutation";
 
 export const ChannelPage = ({
   user,
@@ -34,7 +33,7 @@ export const ChannelPage = ({
   );
 
   return (
-    <MainLayout title={Title} sidePanel={<ChannelSidePanel user={user} />}>
+    <MainLayout title={Title} sidePanel={<SidePanel user={user} />}>
       {!isMutating && channel ? (
         <ChannelMessage messages={messages} user={user} channel={channel} />
       ) : null}
