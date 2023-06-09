@@ -43,6 +43,7 @@ export const MessageInput = ({onSend}: MessageInputProps) => {
   return (
     <form
       className="h-full w-full rounded-md"
+      name="sendMessageForm"
       onSubmit={(ev) => {
         ev.preventDefault();
         submit();

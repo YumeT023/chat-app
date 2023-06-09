@@ -57,7 +57,7 @@ export const CreateChannel = ({user}: CreateChannelProps) => {
   };
 
   return (
-    <form className="flex h-full flex-col gap-6 px-5 pt-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex h-full flex-col gap-6 px-5 pt-5" name="createChannelForm" onSubmit={handleSubmit(onSubmit)}>
       <FullPageLoading isActive={isLoading || isMutating} />
 
       <InputField

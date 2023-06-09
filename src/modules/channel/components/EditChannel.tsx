@@ -55,7 +55,7 @@ export const EditChannel = ({toEdit, user}: EditChannelProps) => {
   };
 
   return (
-    <form className="flex h-full flex-col gap-6 px-3 py-5" onSubmit={handleSubmit(editChannel)}>
+    <form className="flex h-full flex-col gap-6 px-3 py-5" name="editChannelForm" onSubmit={handleSubmit(editChannel)}>
       <FullPageLoading isActive={isLoading || isMutating} />
 
       <FormWrapper name="name" labelCls="text-primary-200">
