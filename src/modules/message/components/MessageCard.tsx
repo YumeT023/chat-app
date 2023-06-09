@@ -1,4 +1,4 @@
-import {Avatar} from "@/src/ui/avatar";
+import {Avatar, StringAvatar} from "@/src/ui/avatar";
 import {Message} from "@/src/modules/message/types";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {DateField} from "@/src/ui/typography";
@@ -14,7 +14,7 @@ export const MessageCard = forwardRef<HTMLDivElement, UserMessageProps>(
     const grid = {
       display: "grid",
       gridTemplateColumns: "3rem auto",
-      gap: 5,
+      gap: 8,
     };
 
     return (
@@ -24,7 +24,8 @@ export const MessageCard = forwardRef<HTMLDivElement, UserMessageProps>(
         {...props}
       >
         <div className="px-1 md:w-2/3" style={grid}>
-          <Avatar src={sender.image || doge} className="h-w-auto mt-2 w-auto" variant="rounded" />
+          <StringAvatar str={sender.name} variant="rounded" className="h-11 w-12" />
+
           <div className="flex flex-col gap-1 text-primary-200">
             <div className="flex items-center gap-2">
               <div className="text-lg font-bold capitalize">{sender.name}</div>

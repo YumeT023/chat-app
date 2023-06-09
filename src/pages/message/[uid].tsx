@@ -4,18 +4,26 @@ import {withAuth} from "@/src/lib/utils";
 import {getMessagesByUser, getUserById} from "@/src/lib/api";
 import {MainLayout, SidePanel} from "@/src/modules/layout";
 import {MessageUser} from "@/src/modules/message";
+import {useEffect} from "react";
+import useSWRMutation from "swr/mutation";
 
 const MessageUserPage = ({
   recipient,
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const {isLoading, data: messages = []} = useSWR("/channels/id/messages", () =>
-    getMessagesByUser(user.token, recipient.id)
-  );
+  const {
+    isMutating,
+    trigger,
+    data: messages = [],
+  } = useSWRMutation("message/uid", () => getMessagesByUser(user.token, recipient.id));
+
+  useEffect(() => {
+    trigger();
+  }, [recipient]);
 
   return (
     <MainLayout title={recipient.name} sidePanel={<SidePanel user={user} />}>
-      {!isLoading && recipient ? (
+      {!isMutating && recipient ? (
         <MessageUser messages={messages} user={user} recipient={recipient} />
       ) : null}
     </MainLayout>
