@@ -24,7 +24,7 @@ export const MessageCard = forwardRef<HTMLDivElement, UserMessageProps>(
         {...props}
       >
         <div className="px-1 md:w-2/3" style={grid}>
-          <StringAvatar str={sender.name} variant="rounded" className="h-11 w-12" />
+          <StringAvatar str={sender.name} variant="rounded" className="mt-2 h-10 w-11" />
 
           <div className="flex flex-col gap-1 text-primary-200">
             <div className="flex items-center gap-2">
