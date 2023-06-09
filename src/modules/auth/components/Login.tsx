@@ -5,15 +5,18 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {loginSchema} from "@/src/modules/auth/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {InputField} from "@/src/ui/form";
-import {auth} from "@/src/modules/auth";
 import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
 import {PROFILE, SIGN_UP} from "@/src/lib/utils/constants";
 import {Button} from "@/src/ui/button";
+import {loginUser} from "@/src/lib/api";
+import nookies from "nookies";
+import useSWRMutation from "swr/mutation";
+
+const loginMutation = async (key: string, {arg}: {arg: {email: string; password: string}}) =>
+  loginUser(arg);
 
 export const Login = () => {
-  const login = auth((state) => state.loginUser);
-  const isLoading = auth((state) => state.isLoading);
-  const {push} = useRouter();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -22,14 +25,17 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
+  const {isMutating: isLoading, trigger} = useSWRMutation("/users/login", loginMutation);
+
   useEffect(() => {
-    getUserSession() && push(PROFILE);
+    getUserSession() && router.push(PROFILE);
   }, []);
 
   const onSubmit = async (payload: any) => {
     try {
-      await login(payload);
-      push(PROFILE);
+      const user = await trigger(payload);
+      nookies.set(null, "user", JSON.stringify(user));
+      router.push(PROFILE);
     } catch (e) {
       console.error("error> ", e);
     }

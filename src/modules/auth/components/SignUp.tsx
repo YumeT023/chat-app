@@ -3,14 +3,19 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {signUpSchema} from "@/src/modules/auth/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
-import {auth} from "@/src/modules/auth";
 import {InputField} from "@/src/ui/form";
 import {LOGIN, PROFILE} from "@/src/lib/utils/constants";
 import {Button} from "@/src/ui/button";
+import {createUser} from "@/src/lib/api";
+import useSWRMutation from "swr/mutation";
+import nookies from "nookies";
+
+const signupMutation = async (
+  key: string,
+  {arg}: {arg: {name: string; email: string; password: string}}
+) => createUser(arg);
 
 export const SignUp = () => {
-  const createUser = auth((state) => state.createUser);
-  const isLoading = auth((state) => state.isLoading);
   const {push} = useRouter();
   const {
     register,
@@ -20,9 +25,12 @@ export const SignUp = () => {
     resolver: yupResolver(signUpSchema),
   });
 
-  const onSubmit = async (user: any) => {
+  const {isMutating: isLoading, trigger} = useSWRMutation("/users", signupMutation);
+
+  const onSubmit = async (toCreate: any) => {
     try {
-      await createUser(user);
+      const user = await trigger(toCreate);
+      nookies.set(null, "user", JSON.stringify(user));
       push(PROFILE);
     } catch (e) {
       console.error(e);
@@ -33,7 +41,11 @@ export const SignUp = () => {
     <AuthForm
       name="registrationForm"
       title="First, tell us who you are"
-      submitBtn={<Button className="registerButton" loading={isLoading}>Register</Button>}
+      submitBtn={
+        <Button className="registerButton" loading={isLoading}>
+          Register
+        </Button>
+      }
       handleSubmit={handleSubmit(onSubmit)}
       alt={{
         text: `Already have an account ?`,

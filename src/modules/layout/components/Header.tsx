@@ -2,18 +2,17 @@ import Link from "next/link";
 import {Avatar} from "@/src/ui/avatar";
 import {InputField} from "@/src/ui/form";
 import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
-import {auth} from "@/src/store";
 import {useRouter} from "next/navigation";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
 import {LOGIN, PROFILE} from "@/src/lib/utils/constants";
+import nookies from "nookies";
 
 export const Header = () => {
   const router = useRouter();
-  const logout = auth((x) => x.logoutUser);
   const logged = getUserSession();
 
   const _logout = () => {
-    logout();
+    nookies.destroy(null, "user");
     if (!getUserSession()) {
       router.push(LOGIN);
     }
@@ -22,7 +21,7 @@ export const Header = () => {
   return (
     <div className="fixed left-0 top-0 flex h-12 w-full items-center justify-between gap-10 bg-dark-100 px-3">
       <button
-        className="text-light w-fit cursor-pointer rounded-md bg-dark-200 px-2 py-1 text-sm text-primary-200 hover:bg-dark-300 logoutButton"
+        className="text-light logoutButton w-fit cursor-pointer rounded-md bg-dark-200 px-2 py-1 text-sm text-primary-200 hover:bg-dark-300"
         onClick={_logout}
       >
         Logout

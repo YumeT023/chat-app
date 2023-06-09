@@ -10,4 +10,4 @@ export type AuthenticatedUser = Api<
 
 export type Payload = Pick<User, "email" | "password">;
 
-export type CreatePayload = Payload & Pick<User, "name" | "bio">;
+export type CreatePayload = Payload & Pick<User, "name">;
