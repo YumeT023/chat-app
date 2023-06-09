@@ -31,7 +31,7 @@ export const AuthForm = ({
   const {text, label, to} = alt;
   return (
     <Flex fullSize center>
-      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl bg-white p-5" name={name}>
+      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl bg-white p-5" name={name} noValidate>
         <div className="mb-2 flex justify-center">
           <Avatar src={doge} />
         </div>
