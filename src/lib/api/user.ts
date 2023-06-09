@@ -25,6 +25,19 @@ export const createUser = async (user: CreatePayload) => {
   }
 };
 
+export type UpdateProfileType = Pick<User, "name" | "password" | "bio"> & {
+  oldPassword: string;
+};
+export const updateUser = async (token: string, update: UpdateProfileType) => {
+  try {
+    return await axios
+      .put<Api<AuthenticatedUser, "user">>("/user", update, addAuth(token))
+      .then(({data}) => data.user);
+  } catch (err) {
+    throw formatError(err);
+  }
+};
+
 export const getUserById = async (token: string, uid: number) => {
   try {
     return await axios

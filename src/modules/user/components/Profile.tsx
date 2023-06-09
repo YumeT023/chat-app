@@ -1,14 +1,31 @@
-import {User, UserStatus as Status} from "@/src/modules/user/types";
-import {StringAvatar} from "@/src/ui/avatar";
-import {Flex} from "@/src/ui/box";
-import {VscMail} from "react-icons/vsc";
+import {useState} from "react";
+import {VscEdit, VscMail} from "react-icons/vsc";
 import {FiCircle} from "react-icons/fi";
+import {AuthenticatedUser, User, UserStatus as Status} from "@/src/modules/user/types";
+import {StringAvatar} from "@/src/ui/avatar";
+import {Flex, ModalBox, SelectionBackdrop} from "@/src/ui/box";
+import {Checkbox, InputField} from "@/src/ui/form";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {Button} from "@/src/ui/button";
+import {pick} from "next/dist/lib/pick";
+import {Key} from "swr";
+import {UpdateProfileType, updateUser} from "@/src/lib/api";
+import {useRouter} from "next/navigation";
+import {PROFILE} from "@/src/lib/utils/constants";
+import useSWRMutation from "swr/mutation";
+import nookies from "nookies";
+import * as yup from "yup";
 
 type UserProps<P = {}> = {
-  user: User;
+  user: AuthenticatedUser;
 } & P;
 
-const Banner = ({user}: UserProps) => {
+type BannerProps = UserProps<{
+  onEdit: () => void;
+}>;
+
+const Banner = ({user, onEdit}: BannerProps) => {
   const {name, bio = ""} = user;
 
   return (
@@ -23,6 +40,12 @@ const Banner = ({user}: UserProps) => {
           className="h-28 w-28 md:h-56 md:w-56"
           innerCls="text-6xl font-mono"
         />
+        <SelectionBackdrop
+          className="absolute -right-8 bottom-0 h-7 rounded-full bg-selection-400 md:right-0"
+          onClick={onEdit}
+        >
+          <VscEdit className="h-5 w-auto rounded-full text-gray-600" />
+        </SelectionBackdrop>
       </div>
 
       <div className="max-w-sm text-center text-sm font-semibold  text-primary-200">{bio}</div>
@@ -79,11 +102,146 @@ const UserInfo = ({user}: UserProps) => {
   );
 };
 
+const editProfile = yup.object({
+  name: yup.string().required(),
+  bio: yup.string().optional(),
+  currentPassword: yup.string(),
+  newPassword: yup.string(),
+  confirmPassword: yup.string(),
+});
+
+const updateProfileMutation = <T = Key,>(token: string) => {
+  return async (key: T, {arg}: {arg: UpdateProfileType}) => await updateUser(token, arg);
+};
+
 export const Profile = ({user}: UserProps) => {
+  const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(editProfile),
+    defaultValues: {
+      ...pick(user, ["name", "bio"]),
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+      editPassword: "off",
+    },
+  });
+
+  const editPassword = watch("editPassword");
+
+  const {isMutating: isLoading, trigger} = useSWRMutation(
+    "/user",
+    updateProfileMutation(user.token)
+  );
+
+  const updateProfile = async (update: any) => {
+    const mapped = {
+      ...pick(update, ["bio", "name"]),
+      password: update.newPassword ?? "",
+      oldPassword: update.currentPassword ?? "",
+    };
+    try {
+      const updatedProfile = await trigger(mapped);
+      nookies.set(null, "user", JSON.stringify(updatedProfile));
+      router.push(PROFILE);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setModalOpen(false);
+    }
+  };
+
   return (
     <div className="h-full w-full">
+      <form onSubmit={handleSubmit(updateProfile)}>
+        <ModalBox
+          title="Edit Profile"
+          open={modalOpen}
+          close={() => setModalOpen(false)}
+          action={
+            <Button size="sm" className="updateProfileButton" loading={isLoading}>
+              Update Profile
+            </Button>
+          }
+        >
+          <InputField
+            explicitName
+            placeholder="Enter new name"
+            sizeVariant="md"
+            variant="dark"
+            labelCls="text-primary-200"
+            className="w-1/2"
+            disabled={isLoading}
+            error={`${errors.name?.message ?? ""}`}
+            {...register("name")}
+          />
+
+          <InputField
+            explicitName
+            placeholder="Enter new bio"
+            sizeVariant="md"
+            variant="dark"
+            labelCls="text-primary-200"
+            className="w-1/2"
+            disabled={isLoading}
+            error={`${errors.bio?.message ?? ""}`}
+            {...register("bio")}
+          />
+
+          <Checkbox value="on" {...register("editPassword")} />
+
+          <div className={editPassword === "on" ? "" : "hidden"}>
+            <InputField
+              explicitName
+              placeholder="Enter current password"
+              sizeVariant="md"
+              variant="dark"
+              type="password"
+              labelCls="text-primary-200"
+              className="w-1/2"
+              disabled={isLoading}
+              error={`${errors.currentPassword?.message ?? ""}`}
+              {...register("currentPassword")}
+            />
+
+            <InputField
+              explicitName
+              placeholder="Enter new password"
+              sizeVariant="md"
+              variant="dark"
+              type="password"
+              labelCls="text-primary-200"
+              className="w-1/2"
+              disabled={isLoading}
+              error={`${errors.newPassword?.message ?? ""}`}
+              {...register("newPassword")}
+            />
+
+            <InputField
+              explicitName
+              placeholder="Confirm password"
+              sizeVariant="md"
+              variant="dark"
+              type="password"
+              labelCls="text-primary-200"
+              className="w-1/2"
+              disabled={isLoading}
+              error={`${errors.confirmPassword?.message ?? ""}`}
+              {...register("confirmPassword")}
+            />
+          </div>
+        </ModalBox>
+      </form>
+
       <div className="flex h-full flex-col md:flex-row">
-        <Banner user={user} />
+        <Banner user={user} onEdit={() => setModalOpen(true)} />
         <UserInfo user={user} />
       </div>
     </div>
