@@ -2,6 +2,7 @@ import Link from "next/link";
 import {SidebarPanelContainer} from "@/src/modules/layout";
 import {Avatar} from "@/src/ui/avatar";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
+import {MdAdd} from "react-icons/md";
 import {SelectionBackdrop} from "@/src/ui/box";
 import {CollapsibleMenu} from "@/src/ui/menu";
 import {useRouter} from "next/router";
@@ -58,6 +59,14 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
               </Link>
             );
           })}
+          <Link href="/channel/create">
+            <SelectionBackdrop
+              className="flex w-full items-center py-0.5 text-left text-sm"
+              selected={atChannelRoute && route.includes("create")}
+            >
+              <MdAdd className="font-bold" /> Add channel
+            </SelectionBackdrop>
+          </Link>
         </CollapsibleMenu>
 
         <CollapsibleMenu
