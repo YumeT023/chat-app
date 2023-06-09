@@ -44,7 +44,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           }}
           loading={loadingChannel}
           className="mb-2"
-          expandedByDefault={atChannelRoute}
+          expandedByDefault
         >
           {channels.map((channel) => {
             const isSelected = atChannelRoute && (query.cid as string) === String(channel.id);
@@ -74,7 +74,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
             label: "Direct Messages",
           }}
           loading={loadingUsers}
-          expandedByDefault={atMessageRoute}
+          expandedByDefault
         >
           {users.map((user) => {
             const isSelected = atMessageRoute && (query.uid as string) === String(user.id);
