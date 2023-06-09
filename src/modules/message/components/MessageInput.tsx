@@ -1,5 +1,5 @@
 import {MultilineField} from "@/src/ui/form";
-import {FormEvent, useEffect, useRef} from "react";
+import {useEffect, useRef} from "react";
 import {MdSend} from "react-icons/md";
 
 export type MessageInputProps = {
@@ -10,19 +10,27 @@ export const MessageInput = ({onSend}: MessageInputProps) => {
   const messageRef = useRef<HTMLTextAreaElement | null>(null);
   const ring = "focus:ring-gray-600 focus:ring-1";
 
-  // Implement `ENTER` to send message
   useEffect(() => {
-    const handleInputChange = (ev: KeyboardEvent) => {};
+    const handleInputChange = (ev: KeyboardEvent) => {
+      if (ev.key === "Enter") {
+        if (!ev.ctrlKey) {
+          ev.preventDefault();
+          submit();
+        } else {
+          const val = messageRef.current!.value;
+          messageRef.current!.value = val + "\n";
+        }
+      }
+    };
 
-    messageRef.current?.addEventListener("keypress", handleInputChange);
+    messageRef.current?.addEventListener("keydown", handleInputChange);
 
     return () => {
-      messageRef.current?.removeEventListener("keypress", handleInputChange);
+      messageRef.current?.removeEventListener("keydown", handleInputChange);
     };
   }, []);
 
-  const submit = (ev: FormEvent) => {
-    ev.preventDefault();
+  const submit = () => {
     const input = messageRef.current;
 
     if (input) {
@@ -33,7 +41,13 @@ export const MessageInput = ({onSend}: MessageInputProps) => {
   };
 
   return (
-    <form className="h-full w-full rounded-md" onSubmit={submit}>
+    <form
+      className="h-full w-full rounded-md"
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        submit();
+      }}
+    >
       <div className="flex h-full w-full justify-evenly">
         <MultilineField
           ref={messageRef}
