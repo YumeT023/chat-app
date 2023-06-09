@@ -36,6 +36,7 @@ export const Login = () => {
 
   return (
     <AuthForm
+      name="loginForm"
       title="Welcome back,"
       submitLabel="sign in"
       handleSubmit={handleSubmit(onSubmit)}

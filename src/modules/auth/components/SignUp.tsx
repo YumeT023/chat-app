@@ -30,6 +30,7 @@ export const SignUp = () => {
 
   return (
     <AuthForm
+      name="registrationForm"
       title="First, tell us who you are"
       submitLabel="Create an account"
       handleSubmit={handleSubmit(onSubmit)}
@@ -63,11 +64,12 @@ export const SignUp = () => {
         {...register("password")}
       />
       <InputField
-        placeholder="Bio"
+        placeholder="Confirm Password"
         root="my-2"
+        type="password"
         className="w-full"
-        error={`${errors.bio?.message ?? ""}`}
-        {...register("bio")}
+        error={`${errors.confirmPassword?.message ?? ""}`}
+        {...register("confirmPassword")}
       />
     </AuthForm>
   );

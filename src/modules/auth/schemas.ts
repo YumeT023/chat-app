@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import {object, string, ref} from "yup";
 
 export const loginSchema = object({
   email: string().email().required(),
@@ -7,5 +7,5 @@ export const loginSchema = object({
 
 export const signUpSchema = loginSchema.shape({
   name: string().required(),
-  bio: string(),
+  confirmPassword: string().equals([ref("password")], "Password should match"),
 });

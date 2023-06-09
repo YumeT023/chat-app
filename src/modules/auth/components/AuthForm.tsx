@@ -7,8 +7,10 @@ import Link from "next/link";
 
 export type AuthFormProps = PropsWithChildren<{
   title: string;
+  name: string;
   submitLabel: string;
   isLoading?: boolean;
+  disabled?: boolean;
   alt: {
     text: string;
     to: string;
@@ -20,6 +22,7 @@ export type AuthFormProps = PropsWithChildren<{
 export const AuthForm = ({
   title,
   submitLabel,
+  name,
   alt,
   handleSubmit,
   children,
@@ -28,7 +31,7 @@ export const AuthForm = ({
   const {text, label, to} = alt;
   return (
     <Flex fullSize center>
-      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl bg-white p-5">
+      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl bg-white p-5" name={name}>
         <div className="mb-2 flex justify-center">
           <Avatar src={doge} />
         </div>
