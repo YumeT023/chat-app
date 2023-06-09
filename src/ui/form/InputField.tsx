@@ -15,6 +15,7 @@ export type InputFieldProps = {
   error?: string;
   root?: string;
   explicitName?: boolean;
+  label?: string;
   labelCls?: string;
   sizeVariant?: keyof typeof sizeClasses;
   variant?: keyof typeof variantClasses;
@@ -24,6 +25,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
     {
       name,
+      label,
       explicitName,
       className = "",
       sizeVariant = "lg",
@@ -41,7 +43,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     return (
       <div className={root}>
-        {explicitName && <div className={`pb-2 capitalize ${labelCls}`}>{name}</div>}
+        {explicitName && <div className={`pb-2 capitalize ${labelCls}`}>{label ?? name}</div>}
         <input ref={ref} className={cn} data-testid="input-field" {...props} name={name} />
         {error !== null && <div className="px-2 py-2 text-sm text-red-600">{error}</div>}
       </div>

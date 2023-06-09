@@ -57,7 +57,7 @@ export const MessageInput = ({onSend}: MessageInputProps) => {
           className={`h-full w-full resize-none border-dark-300 bg-dark-100 bg-opacity-50 text-primary-200 ${ring}`}
         />
         <div className="flex w-[15%] items-center justify-center md:w-[10%]">
-          <button className="flex items-center justify-center rounded-full border border-dark-300 bg-dark-100 p-2 hover:bg-dark-200">
+          <button className="flex items-center justify-center rounded-full border border-dark-300 bg-dark-100 p-2 hover:bg-dark-200 sendMessageButton">
             <MdSend className="h-6 w-6 text-primary-200" />
           </button>
         </div>

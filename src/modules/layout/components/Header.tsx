@@ -22,10 +22,10 @@ export const Header = () => {
   return (
     <div className="fixed left-0 top-0 flex h-12 w-full items-center justify-between gap-10 bg-dark-100 px-3">
       <button
-        className="text-light w-fit cursor-pointer rounded-md bg-dark-200 px-2 py-1 text-sm text-primary-200 hover:bg-dark-300"
+        className="text-light w-fit cursor-pointer rounded-md bg-dark-200 px-2 py-1 text-sm text-primary-200 hover:bg-dark-300 logoutButton"
         onClick={_logout}
       >
-        logout
+        Logout
       </button>
 
       <InputField

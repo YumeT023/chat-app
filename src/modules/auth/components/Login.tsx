@@ -8,6 +8,7 @@ import {InputField} from "@/src/ui/form";
 import {auth} from "@/src/modules/auth";
 import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
 import {PROFILE, SIGN_UP} from "@/src/lib/utils/constants";
+import {Button} from "@/src/ui/button";
 
 export const Login = () => {
   const login = auth((state) => state.loginUser);
@@ -38,9 +39,12 @@ export const Login = () => {
     <AuthForm
       name="loginForm"
       title="Welcome back,"
-      submitLabel="sign in"
+      submitBtn={
+        <Button className="loginButton" loading={isLoading}>
+          Login
+        </Button>
+      }
       handleSubmit={handleSubmit(onSubmit)}
-      isLoading={isLoading}
       alt={{
         text: `Don't have an account ?`,
         to: SIGN_UP,

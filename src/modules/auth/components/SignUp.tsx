@@ -6,6 +6,7 @@ import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {auth} from "@/src/modules/auth";
 import {InputField} from "@/src/ui/form";
 import {LOGIN, PROFILE} from "@/src/lib/utils/constants";
+import {Button} from "@/src/ui/button";
 
 export const SignUp = () => {
   const createUser = auth((state) => state.createUser);
@@ -32,9 +33,8 @@ export const SignUp = () => {
     <AuthForm
       name="registrationForm"
       title="First, tell us who you are"
-      submitLabel="Create an account"
+      submitBtn={<Button className="registerButton" loading={isLoading}>Register</Button>}
       handleSubmit={handleSubmit(onSubmit)}
-      isLoading={isLoading}
       alt={{
         text: `Already have an account ?`,
         to: LOGIN,
@@ -52,6 +52,7 @@ export const SignUp = () => {
         placeholder="Email"
         root="my-2"
         className="w-full"
+        type="email"
         error={`${errors.email?.message ?? ""}`}
         {...register("email")}
       />

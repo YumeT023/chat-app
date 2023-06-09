@@ -1,4 +1,4 @@
-import {BaseSyntheticEvent, PropsWithChildren} from "react";
+import {BaseSyntheticEvent, ComponentType, PropsWithChildren, ReactNode} from "react";
 import {Flex} from "@/src/ui/box";
 import {Avatar} from "@/src/ui/avatar";
 import {Button} from "@/src/ui/button";
@@ -8,8 +8,7 @@ import Link from "next/link";
 export type AuthFormProps = PropsWithChildren<{
   title: string;
   name: string;
-  submitLabel: string;
-  isLoading?: boolean;
+  submitBtn: ReactNode;
   disabled?: boolean;
   alt: {
     text: string;
@@ -21,17 +20,21 @@ export type AuthFormProps = PropsWithChildren<{
 
 export const AuthForm = ({
   title,
-  submitLabel,
+  children,
+  submitBtn,
   name,
   alt,
   handleSubmit,
-  children,
-  isLoading = false,
 }: AuthFormProps) => {
   const {text, label, to} = alt;
   return (
     <Flex fullSize center>
-      <form onSubmit={handleSubmit} className="w-[30rem] rounded-xl bg-white p-5" name={name} noValidate>
+      <form
+        onSubmit={handleSubmit}
+        className="w-[30rem] rounded-xl bg-white p-5"
+        name={name}
+        noValidate
+      >
         <div className="mb-2 flex justify-center">
           <Avatar src={doge} />
         </div>
@@ -41,7 +44,7 @@ export const AuthForm = ({
         <div className="w-full pb-3 pt-2">{children}</div>
 
         <div className="flex justify-center">
-          <Button loading={isLoading}>{submitLabel}</Button>
+          {submitBtn}
         </div>
 
         <div className="pt-6 text-center text-dark-200">

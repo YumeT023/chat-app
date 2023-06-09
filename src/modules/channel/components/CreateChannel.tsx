@@ -40,15 +40,15 @@ export const CreateChannel = ({user}: CreateChannelProps) => {
     formState: {errors},
   } = useForm({
     defaultValues: {
-      name: "",
+      channelName: "",
       type: "public",
       members: [],
     },
     resolver: yupResolver(createSchemas),
   });
 
-  const onSubmit = async ({members, ...channel}: any) => {
-    const serialized = {...channel, members: members.map(Number)};
+  const onSubmit = async ({members, channelName: name, ...channel}: any) => {
+    const serialized = {...channel, name, members: members.map(Number)};
 
     const created = await trigger(serialized);
     if (created) {
@@ -57,19 +57,24 @@ export const CreateChannel = ({user}: CreateChannelProps) => {
   };
 
   return (
-    <form className="flex h-full flex-col gap-6 px-5 pt-5" name="createChannelForm" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex h-full flex-col gap-6 px-5 pt-5"
+      name="createChannelForm"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <FullPageLoading isActive={isLoading || isMutating} />
 
       <InputField
         explicitName
+        label="name"
         placeholder="Name e.g: FunSleek"
         sizeVariant="md"
         variant="dark"
         labelCls="text-primary-200"
         className="w-1/2"
         disabled={isLoading}
-        error={`${errors.name?.message ?? ""}`}
-        {...register("name")}
+        error={`${errors.channelName?.message ?? ""}`}
+        {...register("channelName")}
       />
 
       <FormWrapper name="type" labelCls="text-primary-200" error={`${errors.type?.message ?? ""}`}>
@@ -89,8 +94,8 @@ export const CreateChannel = ({user}: CreateChannelProps) => {
         ))}
       </FormWrapper>
 
-      <Button className="mb-5 w-fit" loading={isLoading}>
-        Create
+      <Button className="createChannelButton mb-5 w-fit" loading={isLoading}>
+        Create Channel{" "}
       </Button>
 
       <div className="pb-2"></div>

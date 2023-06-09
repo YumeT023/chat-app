@@ -83,7 +83,7 @@ export const EditChannel = ({toEdit, user}: EditChannelProps) => {
         ))}
       </FormWrapper>
 
-      <Button className="w-fit">Update</Button>
+      <Button className="w-fit editChannelButton">Edit Channel</Button>
     </form>
   );
 };
