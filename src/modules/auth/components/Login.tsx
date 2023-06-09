@@ -7,6 +7,7 @@ import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {InputField} from "@/src/ui/form";
 import {auth} from "@/src/modules/auth";
 import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
+import {PROFILE, SIGN_UP} from "@/src/lib/utils/constants";
 
 export const Login = () => {
   const login = auth((state) => state.loginUser);
@@ -21,13 +22,13 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    getUserSession() && push("/profile");
+    getUserSession() && push(PROFILE);
   }, []);
 
   const onSubmit = async (payload: any) => {
     try {
       await login(payload);
-      push("/profile");
+      push(PROFILE);
     } catch (e) {
       console.error("error> ", e);
     }
@@ -41,7 +42,7 @@ export const Login = () => {
       isLoading={isLoading}
       alt={{
         text: `Don't have an account ?`,
-        to: "/sign-up",
+        to: SIGN_UP,
         label: "create one",
       }}
     >

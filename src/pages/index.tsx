@@ -4,12 +4,13 @@ import {Flex} from "../ui/box";
 import {HeadController} from "@/src/ui/display";
 import {Avatar} from "@/src/ui/avatar";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
+import {PROFILE} from "@/src/lib/utils/constants";
 
 const HomePage = () => {
   const {push} = useRouter();
 
   useEffect(() => {
-    push("/profile");
+    push(PROFILE)
   }, [push]);
 
   return (

@@ -5,6 +5,7 @@ import {signUpSchema} from "@/src/modules/auth/schemas";
 import {AuthForm} from "@/src/modules/auth/components/AuthForm";
 import {auth} from "@/src/modules/auth";
 import {InputField} from "@/src/ui/form";
+import {LOGIN, PROFILE} from "@/src/lib/utils/constants";
 
 export const SignUp = () => {
   const createUser = auth((state) => state.createUser);
@@ -21,7 +22,7 @@ export const SignUp = () => {
   const onSubmit = async (user: any) => {
     try {
       await createUser(user);
-      push("/profile");
+      push(PROFILE);
     } catch (e) {
       console.error(e);
     }
@@ -35,7 +36,7 @@ export const SignUp = () => {
       isLoading={isLoading}
       alt={{
         text: `Already have an account ?`,
-        to: "/login",
+        to: LOGIN,
         label: "Login",
       }}
     >

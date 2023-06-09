@@ -5,6 +5,7 @@ import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
 import {auth} from "@/src/store";
 import {useRouter} from "next/navigation";
 import doge from "@/src/assets/img/doge-meme-icon.jpg";
+import {LOGIN, PROFILE} from "@/src/lib/utils/constants";
 
 export const Header = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ export const Header = () => {
   const _logout = () => {
     logout();
     if (!getUserSession()) {
-      router.push("/login");
+      router.push(LOGIN);
     }
   };
 
@@ -34,7 +35,7 @@ export const Header = () => {
         root="w-3/4"
       />
 
-      <Link href="/profile" title={logged?.name || "dummy"}>
+      <Link href={PROFILE} title={logged?.name || "dummy"}>
         <Avatar
           src={logged?.image || doge}
           className="h-8 w-8 rounded-full hover:ring-2 hover:ring-accent-300"

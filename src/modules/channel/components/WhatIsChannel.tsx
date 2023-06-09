@@ -2,6 +2,7 @@ import {FiMessageCircle} from "react-icons/fi";
 import {VscNewFile} from "react-icons/vsc";
 import {Flex} from "@/src/ui/box";
 import Link from "next/link";
+import {CHANNEL} from "@/src/lib/utils/constants";
 
 export const WhatIsChannel = () => {
   return (
@@ -18,7 +19,7 @@ export const WhatIsChannel = () => {
       <div className="ml-16 flex-col text-accent-100">
         <Link
           className="flex items-center gap-2 py-2 opacity-95 hover:opacity-100"
-          href="/channel/create"
+          href={`${CHANNEL}/create`}
         >
           <VscNewFile /> Create channel
         </Link>

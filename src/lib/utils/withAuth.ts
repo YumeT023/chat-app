@@ -1,6 +1,7 @@
 import {GetServerSidePropsContext, GetServerSidePropsResult} from "next";
 import {getUserSession} from "@/src/modules/auth/utils/getUserSession";
 import {AuthenticatedUser} from "@/src/modules/user/types";
+import {LOGIN} from "@/src/lib/utils/constants";
 
 export const withAuth = async <T extends Record<string, unknown>>(
   context: GetServerSidePropsContext,
@@ -12,7 +13,7 @@ export const withAuth = async <T extends Record<string, unknown>>(
     return {
       redirect: {
         permanent: true,
-        destination: "/login",
+        destination: LOGIN,
       },
     };
   }

@@ -10,6 +10,7 @@ import {memo, useMemo} from "react";
 import {AuthenticatedUser} from "@/src/modules/user/types";
 import useSWR from "swr";
 import {getChannels, getUsers} from "@/src/lib/api";
+import {CHANNEL, MESSAGE, PROFILE} from "@/src/lib/utils/constants";
 
 export type SidePanelProps = {
   user: AuthenticatedUser;
@@ -22,14 +23,14 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
   );
   const {isLoading: loadingUsers, data: users = []} = useSWR("/users", () => getUsers(user.token));
 
-  const atChannelRoute = useMemo(() => route.includes("/channel"), [route]);
-  const atMessageRoute = useMemo(() => route.includes("/message"), [route]);
+  const atChannelRoute = useMemo(() => route.includes(CHANNEL), [route]);
+  const atMessageRoute = useMemo(() => route.includes(MESSAGE), [route]);
 
   return (
     <SidebarPanelContainer className="bg-dark-100 text-gray-300 ">
       <div className="ml-1.5 flex h-14 items-center border-y border-y-dark-300">
         <Avatar src={doge} className="mr-2 mt-0 h-9 w-9" />
-        <Link href="/profile">
+        <Link href={PROFILE}>
           <SelectionBackdrop className="text-xl font-semibold text-white">
             {user.name}
           </SelectionBackdrop>
@@ -40,7 +41,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
         <CollapsibleMenu
           header={{
             label: "Channels",
-            href: "/channel",
+            href: CHANNEL,
           }}
           loading={loadingChannel}
           className="mb-2"
@@ -49,7 +50,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           {channels.map((channel) => {
             const isSelected = atChannelRoute && (query.cid as string) === String(channel.id);
             return (
-              <Link href={`/channel/${channel.id}`} key={channel.id}>
+              <Link href={`${CHANNEL}/${channel.id}`} key={channel.id}>
                 <SelectionBackdrop
                   className={"w-full py-0.5 text-left text-sm "}
                   selected={isSelected}
@@ -59,7 +60,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
               </Link>
             );
           })}
-          <Link href="/channel/create">
+          <Link href={`${CHANNEL}/create`}>
             <SelectionBackdrop
               className="flex w-full items-center py-0.5 text-left text-sm"
               selected={atChannelRoute && route.includes("create")}
@@ -79,7 +80,7 @@ const SidePanelComponent = ({user}: SidePanelProps) => {
           {users.map((user) => {
             const isSelected = atMessageRoute && (query.uid as string) === String(user.id);
             return (
-              <Link href={`/message/${user.id}`} key={user.id}>
+              <Link href={`${MESSAGE}/${user.id}`} key={user.id}>
                 <SelectionBackdrop
                   className="w-full py-0.5 text-left text-sm"
                   selected={isSelected}

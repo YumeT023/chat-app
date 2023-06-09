@@ -9,6 +9,7 @@ import {FullPageLoading} from "@/src/ui/loading";
 import useSWRMutation from "swr/mutation";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
+import {CHANNEL} from "@/src/lib/utils/constants";
 
 export type EditChannelProps = {
   toEdit: Channel;
@@ -49,7 +50,7 @@ export const EditChannel = ({toEdit, user}: EditChannelProps) => {
       members: payload.members,
     });
     if (edited) {
-      router.push(`/channel/${toEdit.id}`);
+      router.push(`${CHANNEL}/${toEdit.id}`);
     }
   };
 

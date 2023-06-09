@@ -10,6 +10,7 @@ import {FullPageLoading} from "@/src/ui/loading";
 import {createChannel, getUsers} from "@/src/lib/api";
 import {AuthenticatedUser, User} from "@/src/modules/user/types";
 import {Channel, CreateChannel as CreateChannelType} from "@/src/modules/channel/types";
+import {CHANNEL} from "@/src/lib/utils/constants";
 
 export type CreateChannelProps = {
   user: AuthenticatedUser;
@@ -51,7 +52,7 @@ export const CreateChannel = ({user}: CreateChannelProps) => {
 
     const created = await trigger(serialized);
     if (created) {
-      push(`/channel/${created.id}`);
+      push(`${CHANNEL}/${created.id}`);
     }
   };
 
