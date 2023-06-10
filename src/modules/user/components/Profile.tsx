@@ -4,7 +4,7 @@ import {FiCircle} from "react-icons/fi";
 import {AuthenticatedUser, User, UserStatus as Status} from "@/src/modules/user/types";
 import {StringAvatar} from "@/src/ui/avatar";
 import {Flex, ModalBox, SelectionBackdrop} from "@/src/ui/box";
-import {Checkbox, InputField} from "@/src/ui/form";
+import {Checkbox, InputField, MultilineField} from "@/src/ui/form";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Button} from "@/src/ui/button";
@@ -117,11 +117,13 @@ const updateProfileMutation = <T = Key,>(token: string) => {
 export const Profile = ({user}: UserProps) => {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
+  const ring = "focus:ring-gray-600 focus:ring-1";
 
   const {
     register,
     handleSubmit,
     watch,
+    trigger: triggerValidation,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(editProfile),
@@ -183,13 +185,12 @@ export const Profile = ({user}: UserProps) => {
             {...register("name")}
           />
 
-          <InputField
+          <MultilineField
             explicitName
             placeholder="Enter new bio"
-            sizeVariant="md"
-            variant="dark"
             labelCls="text-primary-200"
-            className="w-1/2"
+            root="h-full multiline md:w-[90%] w-[95%]"
+            className={`h-full w-1/2 resize-none border-dark-300 bg-dark-100 bg-opacity-50 text-primary-200 ${ring}`}
             disabled={isLoading}
             error={`${errors.bio?.message ?? ""}`}
             {...register("bio")}
