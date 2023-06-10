@@ -196,7 +196,7 @@ export const Profile = ({user}: UserProps) => {
             {...register("bio")}
           />
 
-          <Checkbox value="on" {...register("editPassword")} />
+          <Checkbox value="on" checked={editPassword === "on"} {...register("editPassword")} />
 
           <div className={editPassword === "on" ? "" : "hidden"}>
             <InputField
