@@ -31,7 +31,7 @@ export const ModalBox = ({open, children, close, title, action, className = ""}:
           <div className="flex items-center justify-between gap-5">
             {action}
 
-            <SelectionBackdrop onClick={close} className="h-7">
+            <SelectionBackdrop onClick={close} type="button" className="h-7">
               <MdClose className="h-6 w-5 text-gray-600" />
             </SelectionBackdrop>
           </div>
